@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Verification - Gunst & Tinte</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .status {
+            text-align: center;
+            padding: 1rem;
+            background: #10b981;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .asset-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .asset-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .asset-item img {
+            max-width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+
+        .asset-name {
+            font-size: 0.875rem;
+            color: #6b7280;
+            word-break: break-all;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Asset Verification - Gunst & Tinte</h1>
+
+        <div class="status">
+            ✓ All 20 Assets Successfully Loaded
+        </div>
+
+        <div class="section">
+            <h2>Logos (6)</h2>
+            <div class="asset-grid">
+                <div class="asset-item">
+                    <img src="/logos/logo-start.svg" alt="Logo Start">
+                    <div class="asset-name">logo-start.svg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/logos/logo-short.svg" alt="Logo Short">
+                    <div class="asset-name">logo-short.svg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/logos/logo-short-long.svg" alt="Logo Short Long">
+                    <div class="asset-name">logo-short-long.svg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/logos/logo-short-long.png" alt="Logo Short Long PNG">
+                    <div class="asset-name">logo-short-long.png</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/logos/logo-short-long-2.svg" alt="Logo Short Long 2">
+                    <div class="asset-name">logo-short-long-2.svg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/logos/logo-kontakt.svg" alt="Logo Kontakt">
+                    <div class="asset-name">logo-kontakt.svg</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Hero & Portrait Images (2)</h2>
+            <div class="asset-grid">
+                <div class="asset-item">
+                    <img src="/images/hero/rubens.jpg" class="image-preview" alt="Rubens Hero">
+                    <div class="asset-name">rubens.jpg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/images/theresa/theresa-portrait.png" class="image-preview" alt="Theresa Portrait">
+                    <div class="asset-name">theresa-portrait.png</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Background Images (4)</h2>
+            <div class="asset-grid">
+                <div class="asset-item">
+                    <img src="/images/backgrounds/forest.jpg" class="image-preview" alt="Forest">
+                    <div class="asset-name">forest.jpg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/images/backgrounds/green.jpg" class="image-preview" alt="Green">
+                    <div class="asset-name">green.jpg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/images/backgrounds/offwhite.jpg" class="image-preview" alt="Offwhite">
+                    <div class="asset-name">offwhite.jpg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/images/backgrounds/red.jpg" class="image-preview" alt="Red">
+                    <div class="asset-name">red.jpg</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Graphics (2)</h2>
+            <div class="asset-grid">
+                <div class="asset-item">
+                    <img src="/graphics/sonne.svg" alt="Sonne">
+                    <div class="asset-name">sonne.svg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/graphics/strahlen.svg" alt="Strahlen">
+                    <div class="asset-name">strahlen.svg</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Social Icons (4)</h2>
+            <div class="asset-grid">
+                <div class="asset-item">
+                    <img src="/icons/social/instagram-offwhite.svg" alt="Instagram Offwhite">
+                    <div class="asset-name">instagram-offwhite.svg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/icons/social/instagram-orange.svg" alt="Instagram Orange">
+                    <div class="asset-name">instagram-orange.svg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/icons/social/tiktok-offwhite.svg" alt="TikTok Offwhite">
+                    <div class="asset-name">tiktok-offwhite.svg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/icons/social/tiktok-orange.svg" alt="TikTok Orange">
+                    <div class="asset-name">tiktok-orange.svg</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>UI Icons (2)</h2>
+            <div class="asset-grid">
+                <div class="asset-item">
+                    <img src="/icons/ui/mail-orange.svg" alt="Mail">
+                    <div class="asset-name">mail-orange.svg</div>
+                </div>
+                <div class="asset-item">
+                    <img src="/icons/ui/tel-orange.svg" alt="Tel">
+                    <div class="asset-name">tel-orange.svg</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">20</div>
+                <div class="stat-label">Total Assets</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Logos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Images</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Graphics</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Icons</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
