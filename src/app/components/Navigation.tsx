@@ -88,16 +88,16 @@ export default function Navigation() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="
+                  className={`
                     font-secondary text-label-desktop lowercase tracking-[0.1em]
-                    text-creme hover:text-limette
                     transition-colors duration-300
                     relative group
-                  "
+                    ${isScrolled ? 'text-creme hover:text-limette' : 'text-dunkelgruen hover:text-orange'}
+                  `}
                 >
                   {link.label}
                   {/* Animated underline on hover */}
-                  <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-limette group-hover:w-full transition-all duration-300" />
+                  <span className={`absolute bottom-0 left-0 w-0 h-[1px] group-hover:w-full transition-all duration-300 ${isScrolled ? 'bg-limette' : 'bg-orange'}`} />
                 </a>
               ))}
             </div>
@@ -105,7 +105,10 @@ export default function Navigation() {
             {/* Mobile Hamburger Menu - Visible only on mobile */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 text-creme hover:text-limette transition-colors duration-300"
+              className={`
+                lg:hidden p-2 transition-colors duration-300
+                ${isScrolled ? 'text-creme hover:text-limette' : 'text-dunkelgruen hover:text-orange'}
+              `}
               aria-label="Open menu"
             >
               <Menu size={28} strokeWidth={1.5} />
