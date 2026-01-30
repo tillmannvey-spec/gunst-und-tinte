@@ -61,12 +61,14 @@ export function fadeInOnScroll(
 
   return gsap.from(element, {
     ...fromVars,
+    immediateRender: false,
     scrollTrigger: {
       trigger: element as gsap.DOMTarget,
       start,
       end,
       scrub,
       markers,
+      once: false,
     },
   });
 }
@@ -120,10 +122,12 @@ export function staggerReveal(
 
   return gsap.from(elements, {
     ...fromVars,
+    immediateRender: false,
     scrollTrigger: {
       trigger: elements as gsap.DOMTarget,
       start,
       markers,
+      once: false,
     },
   });
 }
@@ -317,10 +321,12 @@ export function textReveal(
     duration,
     ease: easings.entrance,
     stagger,
+    immediateRender: false,
     scrollTrigger: {
       trigger: words as gsap.DOMTarget,
       start,
       markers,
+      once: false,
     },
   });
 }
