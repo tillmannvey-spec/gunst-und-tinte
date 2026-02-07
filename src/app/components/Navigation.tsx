@@ -82,18 +82,23 @@ export default function Navigation() {
             </a>
 
             {/* Desktop Navigation - Hidden on mobile */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center gap-8">
+              {/* ✓ FIXED: Changed space-x-8 to gap-8 for more reliable spacing */}
               {navLinks.map((link) => (
                 <a
-                  key={link.href}
+                  key={`${link.label}-${link.href}`}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`
-                    font-secondary text-label-desktop lowercase tracking-[0.1em]
+                    font-secondary text-lg lowercase tracking-[0.1em]
                     transition-colors duration-300
-                    relative group
-                    ${isScrolled ? 'text-creme hover:text-limette' : 'text-dunkelgruen hover:text-orange'}
+                    relative group whitespace-nowrap
+                    ${isScrolled ? 'text-creme hover:text-limette' : 'text-creme hover:text-limette'}
+                    ${!isScrolled && 'drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'}
                   `}
+                  style={{
+                    fontFamily: 'var(--font-space-mono), "Space Mono", monospace',
+                  }}
                 >
                   {link.label}
                   {/* Animated underline on hover */}
@@ -107,7 +112,8 @@ export default function Navigation() {
               onClick={() => setIsMobileMenuOpen(true)}
               className={`
                 lg:hidden p-2 transition-colors duration-300
-                ${isScrolled ? 'text-creme hover:text-limette' : 'text-dunkelgruen hover:text-orange'}
+                ${isScrolled ? 'text-creme hover:text-limette' : 'text-creme hover:text-limette'}
+                ${!isScrolled && 'drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'}
               `}
               aria-label="Open menu"
             >

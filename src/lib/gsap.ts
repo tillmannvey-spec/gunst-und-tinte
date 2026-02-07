@@ -3,26 +3,24 @@
  * SSR-safe setup for Next.js
  */
 
-import { gsap } from 'gsap';
+import { gsap as gsapCore } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Register plugins
+// Register plugins immediately (only runs once)
 if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+  gsapCore.registerPlugin(ScrollTrigger);
 
-// Default GSAP configuration
-gsap.defaults({
-  ease: 'power3.out',
-  duration: 1,
-});
+  // Default GSAP configuration
+  gsapCore.defaults({
+    ease: 'power3.out',
+    duration: 1,
+  });
 
-// ScrollTrigger defaults
-if (typeof window !== 'undefined') {
+  // ScrollTrigger defaults
   ScrollTrigger.defaults({
     start: 'top 80%',
     toggleActions: 'play none none reverse',
-    markers: process.env.NODE_ENV === 'development' ? false : false, // Set to true for debugging
+    markers: false, // Set to true for debugging
   });
 
   // Normalize scroll behavior
@@ -36,7 +34,8 @@ if (typeof window !== 'undefined') {
 }
 
 // Export GSAP and plugins
-export { gsap, ScrollTrigger };
+export const gsap = gsapCore;
+export { ScrollTrigger };
 
 // Common easings export
 export const easings = {

@@ -66,7 +66,7 @@ export default function MobileMenu({
       <nav className="flex flex-col items-center justify-center h-full space-y-8">
         {links.map((link, index) => (
           <a
-            key={link.href}
+            key={`${link.label}-${link.href}`}
             href={link.href}
             onClick={(e) => onLinkClick(e, link.href)}
             className="font-secondary text-2xl lowercase tracking-[0.1em] text-creme hover:text-limette transition-colors duration-300 relative group"

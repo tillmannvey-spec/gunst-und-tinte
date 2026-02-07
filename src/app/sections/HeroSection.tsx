@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { gsap } from '@/lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { parallax } from '@/lib/gsap-utils';
 import { useReducedMotion } from '@/app/hooks/useReducedMotion';
 
@@ -29,11 +29,11 @@ export function HeroSection() {
       }
 
       // Background parallax effect
-      if (backgroundRef.current) {
+      if (backgroundRef.current && sectionRef.current) {
         parallax(backgroundRef.current, {
-          speed: 0.3,
+          speed: 0.2,
           direction: 'vertical',
-          start: 'top bottom',
+          start: 'top top',
           end: 'bottom top',
         });
       }
@@ -70,7 +70,7 @@ export function HeroSection() {
       {/* Background Image with Parallax */}
       <div
         ref={backgroundRef}
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        className="absolute inset-0 w-full h-full"
         style={{ willChange: 'transform' }}
       >
         <Image

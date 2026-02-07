@@ -32,14 +32,18 @@ export function AboutSection() {
 
       // Image fade-in and scale animation
       if (imageRef.current) {
-        gsap.from(imageRef.current, {
-          opacity: 0,
-          scale: 0.95,
+        // ✓ FIXED: Set initial state
+        gsap.set(imageRef.current, { opacity: 0, scale: 0.95 });
+
+        gsap.to(imageRef.current, {
+          opacity: 1,
+          scale: 1,
           duration: 1,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: imageRef.current,
-            start: 'top 85%',
+            start: 'top 90%',
+            toggleActions: 'play none none none',
           },
         });
       }
@@ -55,27 +59,39 @@ export function AboutSection() {
           (el): el is HTMLElement => el !== null
         );
         if (validElements.length > 0) {
-          staggerReveal(validElements, {
-            direction: 'up',
-            distance: 30,
-            stagger: 0.12,
+          // ✓ FIXED: Set initial state for all elements
+          gsap.set(validElements, { opacity: 0, y: 30 });
+
+          gsap.to(validElements, {
+            opacity: 1,
+            y: 0,
             duration: 0.7,
-            start: 'top 85%',
+            ease: 'power3.out',
+            stagger: 0.12,
+            scrollTrigger: {
+              trigger: validElements[0],
+              start: 'top 90%',
+              toggleActions: 'play none none none',
+            },
           });
         }
       }
 
       // CTA button animation
       if (ctaRef.current) {
-        gsap.from(ctaRef.current, {
-          opacity: 0,
-          y: 20,
+        // ✓ FIXED: Set initial state
+        gsap.set(ctaRef.current, { opacity: 0, y: 20 });
+
+        gsap.to(ctaRef.current, {
+          opacity: 1,
+          y: 0,
           duration: 0.6,
           delay: 0.5,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: ctaRef.current,
             start: 'top 90%',
+            toggleActions: 'play none none none',
           },
         });
       }
@@ -99,10 +115,10 @@ export function AboutSection() {
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-10 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image Column */}
+          {/* Image Column - Right on Desktop, Top on Mobile */}
           <div
             ref={imageRef}
-            className="relative w-full aspect-[3/4] max-w-md mx-auto lg:max-w-none rounded-2xl overflow-hidden"
+            className="relative w-full aspect-[3/4] max-w-md mx-auto lg:max-w-none rounded-2xl overflow-hidden order-1 lg:order-2"
             style={{ willChange: 'transform' }}
           >
             <Image
@@ -123,16 +139,17 @@ export function AboutSection() {
             />
           </div>
 
-          {/* Content Column */}
-          <div ref={contentRef} className="flex flex-col justify-center">
+          {/* Content Column - Left on Desktop, Bottom on Mobile */}
+          <div ref={contentRef} className="flex flex-col justify-center order-2 lg:order-1">
             {/* Headline */}
             <h2
               ref={headlineRef}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal mb-8 md:mb-10 leading-[1.1]"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-8 md:mb-10 leading-[1.1]"
               style={{
-                color: '#E0E793',
+                color: '#F7EDC2',
                 fontFamily: 'var(--font-casta), "Casta", serif',
-                opacity: prefersReducedMotion ? 1 : 0,
+                fontWeight: 900,
+                // ✓ FIXED: Font-weight increased to 900 (black) for better contrast
               }}
             >
               hey, ich bin theresa
@@ -150,7 +167,7 @@ export function AboutSection() {
                   style={{
                     color: '#F7EDC2',
                     fontFamily: 'var(--font-space-mono), "Space Mono", monospace',
-                    opacity: prefersReducedMotion ? 1 : 0,
+                    // ✓ FIXED: Always visible, GSAP will animate
                   }}
                 >
                   {paragraph}
@@ -166,7 +183,7 @@ export function AboutSection() {
               style={{
                 color: '#E0E793',
                 fontFamily: 'var(--font-space-mono), "Space Mono", monospace',
-                opacity: prefersReducedMotion ? 1 : 0,
+                // ✓ FIXED: Always visible, GSAP will animate
               }}
             >
               <span className="relative">

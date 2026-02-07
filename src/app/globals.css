@@ -1,59 +1,9 @@
 @import "tailwindcss";
 
 /**
- * FONT FACE DECLARATIONS
- * ======================
- */
-
-/* Casta - Variable Font */
-@font-face {
-  font-family: 'Casta';
-  src: url('/fonts/casta/Casta-Full-Variable-Font-FV.ttf') format('truetype');
-  font-weight: 100 900;
-  font-stretch: 75% 125%;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Space Mono - Regular */
-@font-face {
-  font-family: 'Space Mono';
-  src: url('/fonts/space-mono/SpaceMono-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Space Mono - Bold */
-@font-face {
-  font-family: 'Space Mono';
-  src: url('/fonts/space-mono/SpaceMono-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Space Mono - Italic */
-@font-face {
-  font-family: 'Space Mono';
-  src: url('/fonts/space-mono/SpaceMono-Italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Space Mono - Bold Italic */
-@font-face {
-  font-family: 'Space Mono';
-  src: url('/fonts/space-mono/SpaceMono-BoldItalic.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-/**
  * CSS VARIABLES - Design System
  * ==============================
+ * Fonts are now loaded via Next.js font optimization in layout.tsx
  */
 :root {
   /* Brand Colors */
@@ -89,10 +39,33 @@
 }
 
 @theme inline {
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-casta);
-  --font-mono: var(--font-space-mono);
+  --color-creme: #F7EDC2;
+  --color-limette: #E0E793;
+  --color-orange: #EB5729;
+  --color-burgund: #4F1B37;
+  --color-dunkelgruen: #203D36;
+
+  /* Fonts - Use Next.js font variables */
+  --font-sans: var(--font-casta, 'Casta', Georgia, serif);
+  --font-mono: var(--font-space-mono, 'Space Mono', monospace);
+  --font-primary: var(--font-casta, 'Casta', Georgia, serif);
+  --font-secondary: var(--font-space-mono, 'Space Mono', monospace);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 80px;
+
+  /* Container */
+  --max-width-container: 1440px;
 }
 
 /**
@@ -100,9 +73,10 @@
  * ===========
  */
 
-/* Smooth Scrolling */
+/* Smooth Scrolling & Height */
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 /* Respect user's motion preferences */
@@ -125,6 +99,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
 }
 
 /* Remove default margins */
@@ -139,4 +114,63 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/**
+ * LAYOUT FIXES
+ * =============
+ */
+
+/* Ensure hero section takes full viewport height */
+#hero {
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+}
+
+/**
+ * UTILITY CLASSES
+ * ===============
+ */
+
+/* Section Padding - Standardized across all sections */
+.section-padding {
+  padding-left: 1.25rem; /* 20px mobile */
+  padding-right: 1.25rem;
+  padding-top: 3rem; /* 48px mobile */
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-left: 2.5rem; /* 40px tablet */
+    padding-right: 2.5rem;
+    padding-top: 4rem; /* 64px tablet */
+    padding-bottom: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-left: 5rem; /* 80px desktop */
+    padding-right: 5rem;
+    padding-top: 6rem; /* 96px desktop */
+    padding-bottom: 6rem;
+  }
+}
+
+/* Container Custom - Max-width with auto centering */
+.container-custom {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Animations */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
 }

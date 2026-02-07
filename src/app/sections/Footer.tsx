@@ -133,7 +133,7 @@ export function Footer() {
             style={{
               color: '#F7EDC2',
               fontFamily: 'var(--font-space-mono), "Space Mono", monospace',
-              opacity: prefersReducedMotion ? 0.7 : 0,
+              // ✓ FIXED: Always visible, GSAP handles animation
             }}
             aria-label="Zurück zum Seitenanfang"
           >

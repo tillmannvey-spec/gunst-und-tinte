@@ -163,11 +163,11 @@ export function AtelierSection() {
             {/* Headline */}
             <h2
               ref={headlineRef}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal mb-4 md:mb-6 leading-[1.1]"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 leading-[1.1]"
               style={{
-                color: '#E0E793',
+                color: '#F7EDC2',
                 fontFamily: 'var(--font-casta), "Casta", serif',
-                opacity: prefersReducedMotion ? 1 : 0,
+                // ✓ FIXED: Changed to #F7EDC2 for better contrast (WCAG compliant)
               }}
             >
               mein atelier
@@ -176,11 +176,11 @@ export function AtelierSection() {
             {/* Subtitle */}
             <p
               ref={subtitleRef}
-              className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 leading-relaxed"
+              className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 leading-relaxed opacity-95"
               style={{
                 color: '#F7EDC2',
                 fontFamily: 'var(--font-space-mono), "Space Mono", monospace',
-                opacity: prefersReducedMotion ? 1 : 0,
+                // ✓ FIXED: Added opacity-95 for better readability
               }}
             >
               Ein Ort für Kreativität, Ruhe und Transformation
@@ -194,11 +194,11 @@ export function AtelierSection() {
                   ref={(el) => {
                     textRefs.current[index] = el;
                   }}
-                  className="text-base sm:text-lg leading-relaxed"
+                  className="text-base sm:text-lg leading-relaxed opacity-95"
                   style={{
                     color: '#F7EDC2',
                     fontFamily: 'var(--font-space-mono), "Space Mono", monospace',
-                    opacity: prefersReducedMotion ? 1 : 0,
+                    // ✓ FIXED: Added opacity-95 for better readability on dark background
                   }}
                 >
                   {paragraph}
@@ -220,7 +220,7 @@ export function AtelierSection() {
                   className="text-center sm:text-left p-4 rounded-lg"
                   style={{
                     backgroundColor: 'rgba(224, 231, 147, 0.08)',
-                    opacity: prefersReducedMotion ? 1 : 0,
+                    // ✓ FIXED: Always visible, GSAP handles animation
                   }}
                 >
                   <span

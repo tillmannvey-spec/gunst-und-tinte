@@ -17,34 +17,8 @@ export function PhilosophySection() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Text reveal animation for headline (word by word)
-      if (headlineRef.current) {
-        const words = headlineRef.current.querySelectorAll('.word');
-        if (words.length > 0) {
-          textReveal(words, {
-            stagger: 0.08,
-            duration: 0.6,
-            direction: 'up',
-            distance: 30,
-            start: 'top 80%',
-          });
-        }
-      }
-
-      // Fade in animation for description
-      if (descriptionRef.current) {
-        gsap.from(descriptionRef.current, {
-          opacity: 0,
-          y: 20,
-          duration: 0.8,
-          delay: 0.4,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: descriptionRef.current,
-            start: 'top 85%',
-          },
-        });
-      }
+      // ✓ SIMPLIFIED: Just make everything visible immediately
+      // Remove problematic ScrollTrigger animations
 
       // Continuous rotation for sun (60s per rotation)
       if (sunRef.current && shouldAnimate(prefersReducedMotion)) {
@@ -58,18 +32,8 @@ export function PhilosophySection() {
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
-  // Split headline into words for animation
+  // Headline text - NO animation wrapping for now
   const headlineText = 'come as you are';
-  const headlineWords = headlineText.split(' ').map((word, index) => (
-    <span
-      key={index}
-      className="word inline-block"
-      style={{ opacity: prefersReducedMotion ? 1 : 0 }}
-    >
-      {word}
-      {index < headlineText.split(' ').length - 1 && '\u00A0'}
-    </span>
-  ));
 
   return (
     <section
@@ -96,26 +60,49 @@ export function PhilosophySection() {
       {/* Content */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-10 lg:px-20 w-full">
         <div className="max-w-3xl">
-          {/* Headline with text reveal */}
+          {/* Headline - Simple, no animation */}
           <h2
             ref={headlineRef}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal mb-8 md:mb-12 leading-[0.95] tracking-tight"
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl mb-4"
             style={{
               color: '#203D36',
               fontFamily: 'var(--font-casta), "Casta", serif',
+              fontWeight: 900,
+              fontStretch: '75%',
+              lineHeight: '0.95',
+              letterSpacing: '-0.02em',
+              whiteSpace: 'normal',
+              wordBreak: 'normal',
             }}
           >
-            {headlineWords}
+            {headlineText}
           </h2>
+
+          {/* Orange Subheadline - TATTOOKUNST BY THERESA */}
+          <p
+            className="text-sm sm:text-base uppercase mb-8 md:mb-12"
+            style={{
+              color: '#EB5729',
+              fontFamily: 'var(--font-space-mono), "Space Mono", monospace',
+              letterSpacing: '0.2em',
+              whiteSpace: 'normal',
+              wordBreak: 'normal',
+            }}
+          >
+            TATTOOKUNST BY THERESA
+          </p>
 
           {/* Description */}
           <p
             ref={descriptionRef}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-xl leading-relaxed"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-xl font-medium"
             style={{
               color: '#203D36',
               fontFamily: 'var(--font-space-mono), "Space Mono", monospace',
-              opacity: prefersReducedMotion ? 1 : 0,
+              lineHeight: '1.8',
+              whiteSpace: 'normal',
+              wordBreak: 'normal',
+              wordWrap: 'normal',
             }}
           >
             Bei mir bist du genau richtig – mit allen Ideen, Wünschen und Vorstellungen, die du mitbringst.

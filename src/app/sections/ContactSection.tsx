@@ -179,7 +179,7 @@ export function ContactSection() {
             style={{
               color: '#203D36',
               fontFamily: 'var(--font-casta), "Casta", serif',
-              opacity: prefersReducedMotion ? 1 : 0,
+              // ✓ FIXED: Always visible, GSAP handles animation
             }}
           >
             termin vereinbaren
@@ -190,7 +190,7 @@ export function ContactSection() {
             style={{
               color: '#203D36',
               fontFamily: 'var(--font-space-mono), "Space Mono", monospace',
-              opacity: prefersReducedMotion ? 1 : 0,
+              // ✓ FIXED: Always visible, GSAP handles animation
             }}
           >
             Lass uns gemeinsam dein perfektes Tattoo kreieren
@@ -370,7 +370,7 @@ export function ContactSection() {
               className="space-y-6 p-6 sm:p-8 rounded-2xl"
               style={{
                 backgroundColor: 'rgba(32, 61, 54, 0.05)',
-                opacity: prefersReducedMotion ? 1 : 0,
+                // ✓ FIXED: Always visible, GSAP handles animation
               }}
             >
               <h3
