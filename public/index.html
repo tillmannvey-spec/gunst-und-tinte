@@ -914,13 +914,24 @@
     </div>
   </nav>
 
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" style="position:fixed;inset:0;z-index:55;background:var(--color-burgund);display:none;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;opacity:0;transition:opacity 0.3s ease;">
+    <button id="mobile-menu-close" style="position:absolute;top:1.25rem;right:1.25rem;background:none;border:none;cursor:pointer;color:var(--color-creme);padding:8px;" aria-label="Menü schließen">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <a href="#handwerk" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:2rem;font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">Das Handwerk</a>
+    <a href="#werke" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:2rem;font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">Die Werke</a>
+    <a href="#atelier" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:2rem;font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">Das Atelier</a>
+    <a href="#kontakt" class="mobile-nav-link" style="font-family:var(--font-space-mono);font-size:1rem;font-weight:700;color:var(--color-orange);text-decoration:none;text-transform:uppercase;letter-spacing:0.2em;padding:1rem 2.5rem;border:2px solid var(--color-orange);margin-top:1rem;">Kontakt</a>
+  </div>
+
   <!-- ============================================================ -->
   <!-- SECTION 00: HERO -->
   <!-- ============================================================ -->
   <section id="hero" class="relative w-full h-screen overflow-hidden bg-[#4F1B37]">
     <div class="absolute inset-0">
       <picture class="absolute inset-0">
-        <source media="(max-width: 767px)" srcset="/images/hero/rubens-mobil_with_tattoos.webp">
+        <source media="(max-width: 767px)" srcset="/images/hero/rubens-mobile_with_tattoos.webp">
         <img src="/images/hero/rubens_with_tattoos.webp" alt="Baroque Painting with Tattoos" class="w-full h-full object-cover parallax-bg">
       </picture>
       <div class="absolute inset-0 bg-[#4F1B37] opacity-45"></div>
@@ -1384,6 +1395,18 @@
 
     document.addEventListener('DOMContentLoaded', () => {
 
+      // ===== MOBILE MENU =====
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuClose = document.getElementById('mobile-menu-close');
+      if (mobileMenuBtn && mobileMenu) {
+        const openMenu = () => { mobileMenu.style.display = 'flex'; requestAnimationFrame(() => { mobileMenu.style.opacity = '1'; }); document.body.style.overflow = 'hidden'; };
+        const closeMenu = () => { mobileMenu.style.opacity = '0'; setTimeout(() => { mobileMenu.style.display = 'none'; }, 300); document.body.style.overflow = ''; };
+        mobileMenuBtn.addEventListener('click', openMenu);
+        mobileMenuClose.addEventListener('click', closeMenu);
+        mobileMenu.querySelectorAll('.mobile-nav-link').forEach(link => link.addEventListener('click', closeMenu));
+      }
+
       // ===== NAV SCROLL BEHAVIOR =====
       const nav = document.getElementById('main-nav');
       window.addEventListener('scroll', () => {
@@ -1392,10 +1415,14 @@
           nav.classList.add('nav-scrolled');
           nav.classList.remove('bg-white/5', 'backdrop-blur-md');
           navLinks.forEach(link => { link.classList.remove('text-[#F7EDC2]'); link.classList.add('text-[#203D36]'); });
+          const menuBtn = document.getElementById('mobile-menu-btn');
+          if (menuBtn) menuBtn.style.color = 'var(--color-dunkelgruen)';
         } else {
           nav.classList.remove('nav-scrolled');
           nav.classList.add('bg-white/5', 'backdrop-blur-md');
           navLinks.forEach(link => { link.classList.add('text-[#F7EDC2]'); link.classList.remove('text-[#203D36]'); });
+          const menuBtn = document.getElementById('mobile-menu-btn');
+          if (menuBtn) menuBtn.style.color = '#fff';
         }
         // Hero parallax
         const bg = document.querySelector('.parallax-bg');
@@ -1451,14 +1478,14 @@
         }
       });
 
-      // Underline draw — reverses on scroll back
+      // Underline draw — starts when "verblasst" becomes visible (~40% through word reveal)
       gsap.to('.underline-path', {
         strokeDashoffset: 0,
         ease: 'power2.inOut',
         scrollTrigger: {
           trigger: '#quote-section',
-          start: 'center center',
-          end: '+=120%',
+          start: 'center -=10%',
+          end: '+=50%',
           scrub: true
         }
       });
