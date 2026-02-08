@@ -633,8 +633,17 @@
     }
     .kontakt-image-section img {
       width: 100%;
-      height: auto;
+      height: 70vw;
+      max-height: 450px;
       display: block;
+      object-fit: cover;
+    }
+    @media (min-width: 768px) {
+      .kontakt-image-section img {
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+      }
     }
     .kontakt-image-section::after {
       content: '';
