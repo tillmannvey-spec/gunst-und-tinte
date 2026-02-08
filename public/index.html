@@ -1021,9 +1021,9 @@
       </div>
 
       <!-- Full-screen Blockquote -->
-      <div id="quote-section" class="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] min-h-[100vh] flex items-center justify-center pt-32 md:pt-40 pb-24 md:pb-40" style="background-color: #F7EDC2;">
-        <div class="max-w-6xl px-6 md:px-12 text-center">
-          <blockquote id="quote-text" class="italic font-medium leading-tight" style="color: var(--color-dunkelgruen); font-size: clamp(36px, 6.5vw, 96px);">
+      <div id="quote-section" class="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-screen flex items-center justify-center" style="background-color: #F7EDC2;">
+        <div class="max-w-5xl px-6 md:px-16 text-center">
+          <blockquote id="quote-text" class="italic font-medium" style="color: var(--color-dunkelgruen); font-size: clamp(28px, 4vw, 56px); line-height: 1.35;">
             <span class="quote-word">"Die</span> <span class="quote-word">Haut</span> <span class="quote-word">ist</span> <span class="quote-word">eine</span> <span class="quote-word">Chronik,</span><br>
             <span class="relative inline-block">
               <span class="quote-word">die</span> <span class="quote-word">niemals</span> <span class="quote-word">verblasst</span>
@@ -1474,30 +1474,30 @@
 
       // Word-by-word reveal
       gsap.set('.quote-word', { opacity: 0.2 });
-      gsap.to('.quote-word', {
-        opacity: 1,
-        stagger: 0.2,
-        ease: 'none',
+      const quoteWords = document.querySelectorAll('.quote-word');
+      const totalWords = quoteWords.length;
+      const quoteTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#quote-section',
           start: 'center center',
-          end: '+=120%',
+          end: '+=180%',
           pin: true,
           scrub: true
         }
       });
-
-      // Underline draw — starts when "verblasst" becomes visible (~40% through word reveal)
-      gsap.to('.underline-path', {
-        strokeDashoffset: 0,
-        ease: 'power2.inOut',
-        scrollTrigger: {
-          trigger: '#quote-section',
-          start: 'center -=10%',
-          end: '+=50%',
-          scrub: true
-        }
-      });
+      // Stagger words across 0-85% of timeline
+      quoteTl.to('.quote-word', {
+        opacity: 1,
+        stagger: 0.85 / totalWords,
+        ease: 'none',
+        duration: 0.85
+      }, 0);
+      // Underline draws from 45% to 65% (when "die niemals verblasst" words appear)
+      quoteTl.fromTo('.underline-path',
+        { strokeDashoffset: 500 },
+        { strokeDashoffset: 0, ease: 'power2.inOut', duration: 0.2 },
+        0.45
+      );
 
       gsap.to('.portrait-img', {
         yPercent: -15,
