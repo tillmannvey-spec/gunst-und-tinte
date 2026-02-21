@@ -373,3 +373,16 @@ Um eine frühere Version wiederherzustellen: `git log` → `git checkout <commit
 - closeMenu (Z. ~2226): `gsap.to(menuLinks, ...)` in try/catch eingeschlossen; catch-Zweig setzt opacity:0 und display:none sofort, damit das Menü auch ohne GSAP schließt.
 
 ---
+
+### [2026-02-21] – Fix Desktop Scroll-Bounce + Mobile Animationen aktiviert
+**Dateien:** public/index.html
+**Was:** Desktop-Scroll-Bounce beim ersten Scrollen behoben; GSAP-Animationen auf Mobile reaktiviert
+**Details:**
+- Z. 276: `scroll-behavior: smooth` → `scroll-behavior: auto` (behebt GSAP-Pin-Konflikt auf Desktop)
+- Z. ~2281: JS Smooth-Scroll-Handler für Anchor-Links hinzugefügt (`scrollIntoView({ behavior: 'smooth' })`)
+- Z. ~2477: `#section-num-alt` parallax in `if (!isMobile)` eingeschlossen (scrub vermeidet iOS-Freeze)
+- Z. ~2513: Sig-Squiggles scrub in `if (!isMobile)` eingeschlossen; Mobile-Zweig nutzt `onEnter`-Zeitanimation statt scrub
+- Z. ~2615: `#kontaktHeroImage`-Parallax bleibt Desktop-only; `#infoCol`- und `#formCol`-Fade-Ins jetzt auch auf Mobile aktiv
+- Z. ~2677: KILL-ALL-Block ersetzt durch minimales Cleanup (nur Needle opacity:0 zurücksetzen); alle toggleActions-Animationen laufen jetzt auf Mobile (philosophy, prozess, atelier, werke, footer, sig, kontakt-form)
+
+---

@@ -273,7 +273,7 @@
     }
 
     html {
-      scroll-behavior: smooth;
+      scroll-behavior: auto;
       overflow-x: clip;
     }
 
@@ -2278,6 +2278,19 @@
 
       window.addEventListener('scroll', handleScroll, { passive: true });
 
+      // Smooth scroll for anchor links (CSS scroll-behavior removed to prevent GSAP pin conflict)
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const href = a.getAttribute('href');
+          if (href === '#') return;
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
       // ===== SECTION 01: DAS HANDWERK =====
       gsap.set('.char', { opacity: 0 });
 
@@ -2461,11 +2474,13 @@
         scrollTrigger: { trigger: '.portrait-container', start: 'top bottom', end: 'bottom top', scrub: isMobile ? 2 : true }
       });
 
-      gsap.to('#section-num-alt', {
-        yPercent: 40,
-        ease: 'none',
-        scrollTrigger: { trigger: '#main-header', start: 'top bottom', end: 'bottom top', scrub: 1 }
-      });
+      if (!isMobile) {
+        gsap.to('#section-num-alt', {
+          yPercent: 40,
+          ease: 'none',
+          scrollTrigger: { trigger: '#main-header', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+      }
 
       gsap.from('.philosophy-item', {
         y: 40, opacity: 0, stagger: 0.18, duration: 1.0, ease: 'power3.out',
@@ -2494,15 +2509,28 @@
           .to('#sig-divider', { scaleX: 1, duration: 0.7, ease: 'power3.inOut' }, '-=0.15')
           .to('#sig-text',    { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.35');
 
-        // Squiggles: draw-in tied directly to scroll position
-        if (sq1) gsap.to(sq1, {
-          strokeDashoffset: 0, ease: 'none',
-          scrollTrigger: { trigger: '#sig-block', start: 'top 75%', end: 'bottom 20%', scrub: 1.5 }
-        });
-        if (sq2) gsap.to(sq2, {
-          strokeDashoffset: 0, ease: 'none',
-          scrollTrigger: { trigger: '#sig-block', start: 'top 68%', end: 'bottom 15%', scrub: 2.2 }
-        });
+        if (!isMobile) {
+          // Squiggles: draw-in tied directly to scroll position (desktop scrub)
+          if (sq1) gsap.to(sq1, {
+            strokeDashoffset: 0, ease: 'none',
+            scrollTrigger: { trigger: '#sig-block', start: 'top 75%', end: 'bottom 20%', scrub: 1.5 }
+          });
+          if (sq2) gsap.to(sq2, {
+            strokeDashoffset: 0, ease: 'none',
+            scrollTrigger: { trigger: '#sig-block', start: 'top 68%', end: 'bottom 15%', scrub: 2.2 }
+          });
+        } else {
+          // Mobile: time-based squiggle draw on enter (no scrub freeze risk)
+          ScrollTrigger.create({
+            trigger: '#sig-block',
+            start: 'top 80%',
+            once: true,
+            onEnter: () => {
+              if (sq1) gsap.to(sq1, { strokeDashoffset: 0, ease: 'power2.inOut', duration: 1.2 });
+              if (sq2) gsap.to(sq2, { strokeDashoffset: 0, ease: 'power2.inOut', duration: 1.5, delay: 0.3 });
+            }
+          });
+        }
       })();
 
       // ===== SECTION 03: DIE WERKE =====
@@ -2590,17 +2618,17 @@
           ease: 'none',
           scrollTrigger: { trigger: '#kontaktImageSection', start: 'top top', end: 'bottom top', scrub: 1 }
         });
-
-        gsap.from('#infoCol > *', {
-          opacity: 0, y: 30, duration: 0.8, stagger: 0.12, ease: 'power3.out',
-          scrollTrigger: { trigger: '#formInner', start: 'top 80%', toggleActions: 'play none none none' }
-        });
-
-        gsap.from('#formCol .form-group, #formCol .submit-button', {
-          opacity: 0, y: 25, duration: 0.7, stagger: 0.1, ease: 'power2.out',
-          scrollTrigger: { trigger: '#formCol', start: 'top 85%', toggleActions: 'play none none none' }
-        });
       }
+
+      gsap.from('#infoCol > *', {
+        opacity: 0, y: 30, duration: 0.8, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: '#formInner', start: 'top 80%', toggleActions: 'play none none none' }
+      });
+
+      gsap.from('#formCol .form-group, #formCol .submit-button', {
+        opacity: 0, y: 25, duration: 0.7, stagger: 0.1, ease: 'power2.out',
+        scrollTrigger: { trigger: '#formCol', start: 'top 85%', toggleActions: 'play none none none' }
+      });
 
       // ===== FOOTER =====
       gsap.from('.footer-main > *', {
@@ -2646,32 +2674,14 @@
         if (e.key === 'Escape' && lightbox.style.display === 'flex') closeLightbox();
       });
 
-      // ===== MOBILE: KILL ALL SCROLL ANIMATIONS =====
-      // iOS Safari freezes scroll at GSAP pin spacers and scrub points.
-      // gsap.from(opacity:0) applies hidden state immediately — if the
-      // ScrollTrigger start is missed (anchor nav, refresh at scroll pos),
-      // content stays invisible but takes layout space → bounce/freeze.
-      // Fix: kill every ScrollTrigger, reset all hidden elements to visible.
+      // ===== MOBILE: MINIMAL CLEANUP =====
+      // Scrub-based parallax animations that risk freezing iOS scroll are now
+      // guarded by if (!isMobile) above (section-num-alt, sig squiggles, atelier bg,
+      // kontakt image, quote desktop pin). All toggleActions fade-in animations run freely.
+      // The portrait parallax runs on mobile with reduced range (scrub:2, yPercent:-6).
       if (isMobile) {
-        ScrollTrigger.getAll().forEach(st => st.kill());
-        gsap.set([
-          '.char', '.philosophy-item', '.prozess-item',
-          '#atelier-num', '#atelier-title', '#atelier-card',
-          '#atelier-image-wrap', '.atelier-body-p',
-          '#sec-num', '#werke-hero-title span',
-          '#row1', '#row2', '#row3', '#row4',
-          '#featured-section .featured-piece', '#featured-text',
-          '#inline-quote blockquote', '.showcase-item',
-          '.footer-main > *', '.footer-bottom',
-          '#sig-text', '#sig-label', '#sig-divider'
-        ], { clearProps: 'all' });
-        gsap.set('.quote-reveal', { clipPath: 'inset(0 0% 0 0)' });
-        gsap.set('.underline-path', { strokeDashoffset: 0 });
+        // Keep needle hidden — mobile quote animation shows it when playing
         gsap.set(needle, { opacity: 0 });
-        const _sq1 = document.getElementById('sig-squiggle');
-        const _sq2 = document.getElementById('sig-squiggle-2');
-        if (_sq1) gsap.set(_sq1, { strokeDashoffset: 0 });
-        if (_sq2) gsap.set(_sq2, { strokeDashoffset: 0 });
       }
 
     });
