@@ -1,48 +1,50 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gunst & Tinte - One Pager</title>
+  <title>Gunst & Tinte – Tattoo Atelier Fulda</title>
+  <meta name="description" content="Tattoo Atelier von Theresa – Fineline, Blackwork & Ornamental in Fulda. Individuelle Motive, die bleiben.">
+  <meta property="og:title" content="Gunst & Tinte – Tattoo Atelier Fulda">
+  <meta property="og:description" content="Individuelle Tattoos in Fineline, Blackwork & Ornamental. Atelier in Fulda.">
+  <meta property="og:type" content="website">
   <!-- Preload critical assets -->
   <link rel="preload" href="/fonts/casta/Casta-Full-Variable-Font-FV.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="/fonts/space-mono/SpaceMono-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="/images/hero/rubens_with_tattoos.webp" as="image">
-  <!-- GSAP (kept on CDN - small, well-cached) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <link rel="preload" href="/images/hero/rubens_tattoo_v1_florals.png" as="image">
+  <!-- GSAP wird kurz vor dem Inline-Script geladen, um HTML-Parsing nicht zu blockieren -->
   <style>
     @font-face {
       font-family: 'Casta';
       src: url('/fonts/casta/Casta-Full-Variable-Font-FV.ttf') format('truetype');
       font-weight: 100 900;
-      font-display: swap;
+      font-display: block;
     }
     @font-face {
       font-family: 'Space Mono';
       src: url('/fonts/space-mono/SpaceMono-Regular.ttf') format('truetype');
       font-weight: 400;
-      font-display: swap;
+      font-display: block;
     }
     @font-face {
       font-family: 'Space Mono';
       src: url('/fonts/space-mono/SpaceMono-Bold.ttf') format('truetype');
       font-weight: 700;
-      font-display: swap;
+      font-display: block;
     }
     @font-face {
       font-family: 'Space Mono';
       src: url('/fonts/space-mono/SpaceMono-Italic.ttf') format('truetype');
       font-weight: 400;
       font-style: italic;
-      font-display: swap;
+      font-display: block;
     }
     @font-face {
       font-family: 'Space Mono';
       src: url('/fonts/space-mono/SpaceMono-BoldItalic.ttf') format('truetype');
       font-weight: 700;
       font-style: italic;
-      font-display: swap;
+      font-display: block;
     }
 
     :root {
@@ -51,7 +53,7 @@
       --color-orange: #EB5729;
       --color-burgund: #4F1B37;
       --color-dunkelgruen: #203D36;
-      --font-casta: 'Casta', Georgia, serif;
+      --font-casta: 'Casta', serif;
       --font-space-mono: 'Space Mono', monospace;
     }
 
@@ -272,6 +274,7 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: clip;
     }
 
     /* ===== NOISE OVERLAY (single, shared) ===== */
@@ -295,8 +298,16 @@
     }
     @keyframes bounce-slow {
       0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
+      40% { transform: translateY(-6px); }
+      60% { transform: translateY(-3px); }
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes strahlen-enter {
+      from { opacity: 0; }
+      to { opacity: 0.2; }
     }
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(20px); }
@@ -362,17 +373,59 @@
       color: var(--color-orange);
       font-family: var(--font-casta);
     }
+    @media (max-width: 767px) {
+      .drop-cap::first-letter {
+        font-size: 2.5rem;
+        padding-top: 6px;
+        padding-right: 8px;
+      }
+    }
 
-    .philosophy-card {
-      transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s ease;
-      background: var(--color-dunkelgruen);
-      border-top: 4px solid var(--color-orange);
-      color: var(--color-creme);
+    .philosophy-statements {
+      border-top: 2px solid var(--color-dunkelgruen);
+    }
+    .philosophy-item {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr 1.6fr;
+      gap: 0 clamp(1.5rem, 3vw, 4rem);
+      align-items: baseline;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid rgba(32, 61, 54, 0.18);
       will-change: transform, opacity;
     }
-    .philosophy-card:hover {
-      transform: translateY(-8px) !important;
-      box-shadow: 0 20px 40px -10px rgba(32, 61, 54, 0.4);
+    @media (max-width: 768px) {
+      .philosophy-item {
+        grid-template-columns: 2rem 1fr;
+        grid-template-rows: auto auto;
+        gap: 0.5rem 1.25rem;
+        padding: 1.5rem 0;
+      }
+      .philosophy-text { grid-column: 2; }
+    }
+    .philosophy-number {
+      font-family: var(--font-casta);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 700;
+      color: var(--color-orange);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      opacity: 0.9;
+    }
+    .philosophy-title {
+      font-family: var(--font-casta);
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-style: italic;
+      font-weight: 700;
+      color: var(--color-dunkelgruen);
+      line-height: 1.1;
+    }
+    .philosophy-text {
+      font-family: var(--font-space-mono);
+      font-size: clamp(0.85rem, 1vw, 0.95rem);
+      color: var(--color-dunkelgruen);
+      opacity: 0.72;
+      line-height: 1.85;
     }
 
     .underline-path {
@@ -381,7 +434,8 @@
     }
 
     .quote-word {
-      display: inline;
+      display: inline-block;
+      will-change: transform, opacity, filter;
     }
 
     .rotating-strahlen {
@@ -457,19 +511,6 @@
       inset: 8px;
     }
 
-    .caption-bar {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 20px;
-      background: linear-gradient(to top, rgba(32, 61, 54, 0.95), transparent);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-    .showcase-item:hover .caption-bar {
-      opacity: 1;
-      transform: translateY(0);
-    }
 
     .werke-hero-statement {
       font-size: clamp(48px, 8vw, 120px);
@@ -531,21 +572,6 @@
     }
 
     /* ===== SECTION 03 - DAS ATELIER ===== */
-    @keyframes atelier-sonne-spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    @keyframes atelier-sonne-float {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(180deg); }
-    }
-    .atelier-sonne-deco {
-      position: absolute;
-      pointer-events: none;
-      opacity: 0.08;
-    }
-    .atelier-sonne-deco.atelier-spin { animation: atelier-sonne-spin 40s linear infinite; }
-    .atelier-sonne-deco.atelier-float { animation: atelier-sonne-float 12s ease-in-out infinite; }
 
     .atelier-glass-card {
       padding: 2rem 0;
@@ -557,11 +583,11 @@
       overflow: hidden;
       transform: rotate(3deg);
       transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.6s ease;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 0 0 1px rgba(247,237,194,0.15), 0 8px 40px rgba(0,0,0,0.4);
     }
     .atelier-image-frame:hover {
       transform: rotate(0deg) scale(1.02);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 0 0 1px rgba(247,237,194,0.15), 0 30px 80px rgba(0, 0, 0, 0.5);
     }
     .atelier-image-frame::before,
     .atelier-image-frame::after {
@@ -603,6 +629,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      filter: sepia(15%) contrast(1.05);
     }
     .atelier-vignette::after {
       content: '';
@@ -628,65 +655,118 @@
     .kontakt-image-section {
       position: relative;
       width: 100%;
-      background: #000;
+      background: #0a1a15;
       overflow: hidden;
+      min-height: 65vh;
     }
     .kontakt-image-section img {
       width: 100%;
-      height: auto;
+      height: 65vh;
       display: block;
+      object-fit: cover;
+      object-position: center 15%;
+      opacity: 0.70;
     }
     .kontakt-image-section::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 30%;
+      height: 55%;
       background: linear-gradient(to top, var(--color-dunkelgruen), transparent);
+      pointer-events: none;
+    }
+    .kontakt-image-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 5vw 5rem;
+      z-index: 2;
+    }
+    .kontakt-overlay-eyebrow {
+      font-family: var(--font-space-mono);
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-orange);
+      margin-bottom: 1.25rem;
+    }
+    .kontakt-overlay-title {
+      font-family: var(--font-casta);
+      font-size: clamp(3.5rem, 9vw, 10rem);
+      font-weight: 800;
+      font-variation-settings: 'wght' 800;
+      color: var(--color-creme);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+    }
+    .kontakt-overlay-number {
+      position: absolute;
+      top: 3rem;
+      right: 5vw;
+      font-family: var(--font-space-mono);
+      font-size: clamp(120px, 20vw, 240px);
+      font-weight: 700;
+      color: var(--color-creme);
+      opacity: 0.05;
+      line-height: 1;
+      user-select: none;
       pointer-events: none;
     }
 
     .kontakt-form-section {
       position: relative;
       background: var(--color-dunkelgruen);
-      padding: 5rem 2rem 6rem;
+      padding: 6rem 5vw 8rem;
     }
     .kontakt-form-inner {
-      max-width: 900px;
+      max-width: 1280px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
+      grid-template-columns: 5fr 7fr;
+      gap: 8rem;
       align-items: start;
+    }
+    @media (max-width: 900px) {
+      .kontakt-form-inner { grid-template-columns: 1fr; gap: 4rem; }
     }
 
     .kontakt-section-number {
       font-family: var(--font-space-mono);
-      font-size: 1rem;
+      font-size: 10px;
       color: var(--color-orange);
-      letter-spacing: 0.2em;
-      margin-bottom: 1rem;
+      letter-spacing: 0.35em;
+      margin-bottom: 1.5rem;
       font-weight: 700;
+      text-transform: uppercase;
     }
     .kontakt-section-title {
-      font-size: 3.5rem;
-      font-weight: 300;
-      font-variation-settings: 'wght' 300;
+      font-family: var(--font-casta);
+      font-size: clamp(2.5rem, 4vw, 4.5rem);
+      font-weight: 800;
+      font-variation-settings: 'wght' 800;
       color: var(--color-creme);
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
+      line-height: 1.0;
+      margin-bottom: 2rem;
+      letter-spacing: -0.025em;
     }
     .kontakt-section-subtitle {
       color: var(--color-creme);
-      opacity: 0.6;
-      font-size: 1.1rem;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
+      opacity: 0.45;
+      font-family: var(--font-space-mono);
+      font-size: 12px;
+      line-height: 2;
+      margin-bottom: 3rem;
+      letter-spacing: 0.02em;
     }
 
     .contact-links {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 0;
+      border-top: 1px solid rgba(247,237,194,0.12);
+      margin-top: 1rem;
     }
     .contact-link {
       display: flex;
@@ -694,17 +774,37 @@
       gap: 1rem;
       color: var(--color-creme);
       text-decoration: none;
-      font-size: 0.95rem;
-      opacity: 0.7;
-      transition: all 0.3s ease;
+      font-family: var(--font-space-mono);
+      font-size: 13px;
+      opacity: 0.5;
+      transition: opacity 0.25s ease, color 0.25s ease, padding-left 0.25s ease;
+      padding: 0.875rem 0;
+      min-height: 44px;
+      border-bottom: 1px solid rgba(247,237,194,0.12);
+      letter-spacing: 0.08em;
     }
     .contact-link:hover {
       opacity: 1;
       color: var(--color-orange);
+      padding-left: 6px;
     }
-    .contact-link svg {
-      flex-shrink: 0;
+    .contact-link svg { flex-shrink: 0; }
+
+    /* Form section dividers */
+    .form-section-label {
+      display: block;
+      font-family: var(--font-space-mono);
+      font-size: 9px;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--color-orange);
+      opacity: 0.6;
+      padding-bottom: 0.875rem;
+      margin-bottom: 1.75rem;
+      margin-top: 3rem;
+      border-bottom: 1px solid rgba(247,237,194,0.12);
     }
+    .form-section-label:first-child { margin-top: 0; }
 
     .form-group {
       position: relative;
@@ -717,7 +817,7 @@
       border-bottom: 1px solid rgba(247, 237, 194, 0.3);
       padding: 0.75rem 0;
       color: var(--color-creme);
-      font-family: var(--font-casta);
+      font-family: var(--font-space-mono);
       font-size: 1rem;
       outline: none;
       transition: border-color 0.3s ease;
@@ -736,6 +836,7 @@
       opacity: 0.5;
       transition: all 0.3s ease;
       pointer-events: none;
+      font-family: var(--font-space-mono);
       font-size: 1rem;
     }
     .form-input:focus + .form-label,
@@ -802,7 +903,7 @@
       flex-direction: column;
       gap: 0.75rem;
     }
-    .footer-logo { height: 60px; width: auto; }
+    .footer-logo { height: 80px; width: auto; }
     .footer-nav {
       display: flex;
       gap: 2rem;
@@ -860,6 +961,7 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .showcase-row { flex-direction: column; }
+      .showcase-row > div { width: 100% !important; }
       .showcase-item { width: 100% !important; }
       .kontakt-form-inner {
         grid-template-columns: 1fr;
@@ -875,6 +977,7 @@
         gap: 2rem;
       }
       .footer-logo-section { align-items: center; }
+      .footer-logo { height: 60px; }
       .footer-social { justify-content: center; }
       .footer-bottom {
         flex-direction: column;
@@ -886,6 +989,529 @@
       .footer-nav { flex-direction: column; gap: 1rem; }
       .footer-main { padding: 2rem 1.5rem 1.5rem; }
       .footer-bottom { padding: 1rem 1.5rem; }
+    }
+
+    /* ===== FONT AUDIT ADDITIONS ===== */
+    .atelier-body-p {
+      font-family: var(--font-space-mono) !important;
+    }
+    .drop-cap {
+      font-family: var(--font-space-mono);
+    }
+
+    /* ===== FIX 2: SHOWCASE LABEL ===== */
+    .showcase-label {
+      display: none;
+    }
+
+    /* ===== FIX 3: ATELIER IMAGE FRAME ===== */
+
+    /* ===== FIX 4: KONTAKT INFO-BLOCK ===== */
+    .kontakt-info-text p {
+      font-family: var(--font-space-mono);
+      font-size: 13px;
+      line-height: 1.9;
+      color: rgba(247,237,194,0.75);
+      margin-bottom: 1rem;
+    }
+    .kontakt-hinweise {
+      margin-top: 2.5rem;
+      max-width: 680px;
+    }
+    .kontakt-hinweise-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-top: 1px solid rgba(247,237,194,0.12);
+      padding: 1rem 0;
+      cursor: pointer;
+      font-family: var(--font-space-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(247,237,194,0.4);
+      transition: color 0.3s ease;
+    }
+    .kontakt-hinweise-toggle:hover { color: rgba(247,237,194,0.72); }
+    .kontakt-hinweise-toggle .toggle-icon { transition: transform 0.35s ease; }
+    .kontakt-hinweise-toggle.open .toggle-icon { transform: rotate(180deg); }
+    .kontakt-hinweise-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    .kontakt-hinweise-content.open { max-height: 2000px; }
+
+    /* Tattoo Anfrage Formular */
+    .tattoo-form {
+      max-width: 680px;
+    }
+    .tattoo-form .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 640px) {
+      .tattoo-form .form-row { grid-template-columns: 1fr; }
+    }
+    .tattoo-form .form-group {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .tattoo-form .form-group.floating input,
+    .tattoo-form .form-group.floating textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(247,237,194,0.25);
+      color: var(--color-creme);
+      font-family: var(--font-space-mono);
+      font-size: 13px;
+      padding: 1.2rem 0 0.4rem 0;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: none;
+    }
+    .tattoo-form .form-group.floating input:focus,
+    .tattoo-form .form-group.floating textarea:focus {
+      border-bottom-color: var(--color-orange);
+    }
+    .tattoo-form .form-group.floating label {
+      position: absolute;
+      top: 1.1rem;
+      left: 0;
+      font-family: var(--font-space-mono);
+      font-size: 12px;
+      color: rgba(247,237,194,0.45);
+      pointer-events: none;
+      transition: top 0.2s, font-size 0.2s, color 0.2s;
+    }
+    .tattoo-form .form-group.floating input:focus + label,
+    .tattoo-form .form-group.floating input:not(:placeholder-shown) + label,
+    .tattoo-form .form-group.floating textarea:focus + label,
+    .tattoo-form .form-group.floating textarea:not(:placeholder-shown) + label {
+      top: 0;
+      font-size: 10px;
+      color: var(--color-orange);
+    }
+    .tattoo-form .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    .select-float-label {
+      display: block;
+      font-family: var(--font-space-mono);
+      font-size: 10px;
+      color: var(--color-orange);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.05em;
+    }
+    .tattoo-select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(247,237,194,0.25);
+      color: var(--color-creme);
+      font-family: var(--font-space-mono);
+      font-size: 13px;
+      padding: 0.4rem 1.5rem 0.4rem 0;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23e8861a'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.25rem center;
+    }
+    .tattoo-select:focus { border-bottom-color: var(--color-orange); }
+    .tattoo-select option { background: var(--color-dunkelgruen); color: var(--color-creme); }
+    @media (max-width: 767px) {
+      #row4 .showcase-item[style*="21/9"] {
+        aspect-ratio: 16/9 !important;
+      }
+    }
+    .file-input-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .file-upload-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .file-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid rgba(247,237,194,0.2);
+      background: transparent;
+      color: rgba(247,237,194,0.65);
+      font-family: var(--font-space-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      align-self: flex-start;
+    }
+    .file-btn:hover {
+      border-color: var(--color-orange);
+      color: var(--color-creme);
+    }
+    .file-btn:focus-visible {
+      outline: 2px solid var(--color-orange);
+      outline-offset: 4px;
+    }
+    .file-hint {
+      font-family: var(--font-space-mono);
+      font-size: 9px;
+      letter-spacing: 0.05em;
+      color: rgba(247,237,194,0.35);
+      line-height: 1.5;
+    }
+    .file-name-display {
+      font-family: var(--font-space-mono);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      color: var(--color-limette);
+      min-height: 1em;
+    }
+    .tattoo-form .form-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .tattoo-form .form-check input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--color-orange);
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .tattoo-form .form-check label {
+      font-family: var(--font-space-mono);
+      font-size: 11px;
+      color: rgba(247,237,194,0.65);
+      line-height: 1.7;
+      cursor: pointer;
+    }
+    .tattoo-form-submit {
+      display: block;
+      width: 100%;
+      margin-top: 2.5rem;
+      padding: 0;
+      height: 72px;
+      background: var(--color-burgund);
+      border: none;
+      border-top: 1px solid rgba(247,237,194,0.1);
+      color: var(--color-creme);
+      font-family: var(--font-space-mono);
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.4s ease, color 0.4s ease, opacity 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tattoo-form-submit::after {
+      content: '→';
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%) translateX(8px);
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      font-size: 1rem;
+      letter-spacing: 0;
+    }
+    .tattoo-form-submit:not(:disabled):hover {
+      background: var(--color-orange);
+      color: white;
+    }
+    .tattoo-form-submit:not(:disabled):hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+    .tattoo-form-submit:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+    .form-success-msg {
+      font-family: var(--font-space-mono);
+      font-size: 13px;
+      color: var(--color-limette);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      border: 1px solid rgba(224,231,147,0.3);
+    }
+
+    /* ===== AUDIT FIXES: FOCUS VISIBLE ===== */
+    :focus-visible {
+      outline: 2px solid var(--color-orange);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    /* Inputs verwenden border-bottom als Focus-Indikator */
+    .form-input:focus-visible,
+    .form-textarea:focus-visible,
+    .tattoo-form .form-group.floating input:focus-visible,
+    .tattoo-form .form-group.floating textarea:focus-visible,
+    .tattoo-select:focus-visible {
+      outline: none;
+    }
+
+    /* ===== AUDIT FIXES: KONTRAST - Opacity-Böden anheben ===== */
+    .ticker span { color: rgba(247, 237, 194, 0.55); }
+    .contact-link { opacity: 0.72; }
+    .kontakt-section-subtitle { opacity: 0.65 !important; }
+    .kontakt-info-text p { color: rgba(247, 237, 194, 0.8); }
+
+    /* ===== AUDIT FIXES: TOUCH TARGETS ===== */
+    .footer-social a {
+      padding: 10px;
+      margin: -10px;
+    }
+    #close-lb {
+      padding: 12px;
+      min-width: 48px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #mobile-menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-creme);
+      padding: 8px;
+      min-width: 44px;
+      min-height: 44px;
+      vertical-align: middle;
+    }
+    /* Desktop: md:hidden überschreibt display — hier nur sicherstellen */
+    @media (min-width: 768px) {
+      #mobile-menu-btn { display: none !important; }
+    }
+
+    /* ===== PREFERS REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .animate-sun-rotate,
+      .animate-ray-pulse,
+      .animate-bounce-slow,
+      .rotating-strahlen,
+      .ticker { animation-play-state: paused; }
+      .hero-stagger-in { animation: none; opacity: 1; }
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ===== MOBILE MENU INITIAL STATE (GSAP übernimmt Animation) ===== */
+    .mobile-nav-link { opacity: 0; }
+
+    /* ===== MOBILE NAV ===== */
+    @media (max-width: 767px) {
+      #main-nav > div {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        height: 4.5rem;
+      }
+    }
+
+    /* ===== MOBILE: HANDWERK HEADING OVERFLOW ===== */
+    @media (max-width: 767px) {
+      #section-title-alt {
+        white-space: normal !important;
+        font-size: clamp(2.25rem, 11vw, 3rem) !important;
+        overflow-wrap: break-word;
+      }
+    }
+
+    /* ===== MOBILE: WERKE SECTION PADDING ===== */
+    @media (max-width: 767px) {
+      #werke > header {
+        padding: 48px 20px 32px !important;
+      }
+      #werke .line-divider {
+        margin: 0 20px !important;
+      }
+      #werke .ticker-wrap {
+        margin: 0 0 32px !important;
+      }
+    }
+
+    /* ===== MOBILE: FEATURED SECTION (inline styles override) ===== */
+    @media (max-width: 768px) {
+      #featured-section {
+        flex-direction: column !important;
+        padding: 40px 20px 48px !important;
+        gap: 28px !important;
+      }
+      #featured-section > div:first-child {
+        max-height: 55vh !important;
+        flex: none !important;
+        width: 100% !important;
+      }
+      #featured-text {
+        flex: 1 1 auto !important;
+        width: 100% !important;
+      }
+      #featured-section blockquote,
+      #featured-section p { max-width: 100%; }
+    }
+
+    /* ===== MOBILE: INLINE QUOTE ===== */
+    @media (max-width: 767px) {
+      #inline-quote { padding: 60px 20px !important; }
+    }
+
+    /* ===== MOBILE: GUTSCHEINE ===== */
+    @media (max-width: 767px) {
+      #gutscheine > div {
+        padding: 48px 20px !important;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+      }
+    }
+
+    /* ===== MOBILE: SHOWCASE ROW 4 - cinematic wide ===== */
+    @media (max-width: 767px) {
+      #row4 .showcase-item {
+        aspect-ratio: 16 / 9 !important;
+      }
+    }
+
+    /* ===== MOBILE: KONTAKT OVERLAY ===== */
+    @media (max-width: 767px) {
+      .kontakt-image-overlay {
+        padding: 0 1.25rem 2.5rem !important;
+      }
+      .kontakt-form-section {
+        padding: 3rem 1.25rem 4rem !important;
+      }
+      .kontakt-overlay-title {
+        font-size: clamp(2.5rem, 12vw, 5rem) !important;
+      }
+    }
+
+    /* ===== MOBILE: HERO – zweiten Scroll-Pfeil verbergen ===== */
+    #hero-scroll-duplicate {
+      display: none;
+    }
+
+    /* ===== MOBILE MENU DESIGN ===== */
+    .mobile-menu-logo {
+      position: absolute;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 36px;
+      width: auto;
+      opacity: 0.35;
+    }
+    .mobile-menu-cities {
+      position: absolute;
+      bottom: 2rem;
+      font-family: var(--font-space-mono);
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--color-creme);
+      opacity: 0.3;
+    }
+    .mobile-menu-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 0;
+    }
+    .mobile-menu-item {
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid rgba(247, 237, 194, 0.06);
+      padding: 1.1rem 0;
+    }
+    .mobile-menu-item:first-child {
+      border-top: 1px solid rgba(247, 237, 194, 0.06);
+    }
+    /* Anfrage-Button im Mobile Menu */
+    .mobile-menu-cta-wrap {
+      margin-top: 2rem;
+      padding: 0 2.5rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ===== PROZESS SECTION ===== */
+    .prozess-statements {
+      border-top: 2px solid rgba(247, 237, 194, 0.2);
+    }
+    .prozess-item {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr 1.6fr;
+      gap: 0 clamp(1.5rem, 3vw, 4rem);
+      align-items: baseline;
+      padding: 1.6rem 0;
+      border-top: 1px solid rgba(247, 237, 194, 0.12);
+      will-change: transform, opacity;
+    }
+    .prozess-item--last {
+      border-bottom: 1px solid rgba(247, 237, 194, 0.12);
+    }
+    .prozess-number {
+      font-family: var(--font-casta);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 700;
+      color: var(--color-orange);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      opacity: 0.9;
+    }
+    .prozess-title {
+      font-family: var(--font-casta);
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-style: italic;
+      font-weight: 700;
+      color: var(--color-creme);
+      line-height: 1.1;
+    }
+    .prozess-text {
+      font-family: var(--font-space-mono);
+      font-size: clamp(0.85rem, 1vw, 0.95rem);
+      color: var(--color-creme);
+      opacity: 0.72;
+      line-height: 1.85;
+    }
+
+    /* ===== MOBILE: PROZESS ===== */
+    @media (max-width: 767px) {
+      .prozess-item {
+        grid-template-columns: 2rem 1fr;
+        grid-template-rows: auto auto;
+        gap: 0.5rem 1.25rem;
+        padding: 1.5rem 0;
+      }
+      .prozess-text { grid-column: 2; }
     }
   </style>
 </head>
@@ -904,54 +1530,81 @@
       </a>
       <div class="hidden md:flex items-center gap-12">
         <a href="#handwerk" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-[#F7EDC2]">Das Handwerk</a>
-        <a href="#werke" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-[#F7EDC2]">Die Werke</a>
         <a href="#atelier" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-[#F7EDC2]">Das Atelier</a>
-        <a href="#kontakt" id="nav-kontakt-link" class="px-6 py-2 border-2 border-[#EB5729] text-[#EB5729] font-bold uppercase text-xs tracking-widest hover:bg-[#EB5729] hover:text-[#F7EDC2] transition-all">Kontakt</a>
+        <a href="#werke" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-[#F7EDC2]">Die Werke</a>
+        <a href="#prozess" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-[#F7EDC2]">Der Prozess</a>
+        <a href="#kontakt" id="nav-kontakt-link" class="px-6 py-2 border-2 border-[#EB5729] text-[#EB5729] font-bold uppercase text-xs tracking-widest hover:bg-[#EB5729] hover:text-[#F7EDC2] transition-all">Anfrage</a>
       </div>
-      <div class="md:hidden text-white">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
-      </div>
+      <button id="mobile-menu-btn" class="md:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
     </div>
   </nav>
 
   <!-- Mobile Menu Overlay -->
-  <div id="mobile-menu" style="position:fixed;inset:0;z-index:55;background:var(--color-burgund);display:none;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;opacity:0;transition:opacity 0.3s ease;">
-    <button id="mobile-menu-close" style="position:absolute;top:1.25rem;right:1.25rem;background:none;border:none;cursor:pointer;color:var(--color-creme);padding:8px;" aria-label="Menü schließen">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation" style="position:fixed;inset:0;z-index:55;background:var(--color-burgund);display:none;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity 0.35s ease;">
+
+    <!-- Logo oben zentriert -->
+    <img src="/logos/logo-kontakt.svg" alt="Gunst & Tinte" class="mobile-menu-logo">
+
+    <!-- Schließen-Button -->
+    <button id="mobile-menu-close" style="position:absolute;top:1.25rem;right:1.25rem;background:none;border:none;cursor:pointer;color:var(--color-creme);padding:10px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;" aria-label="Menü schließen">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
-    <a href="#handwerk" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:2rem;font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">Das Handwerk</a>
-    <a href="#werke" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:2rem;font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">Die Werke</a>
-    <a href="#atelier" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:2rem;font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">Das Atelier</a>
-    <a href="#kontakt" class="mobile-nav-link" style="font-family:var(--font-space-mono);font-size:1rem;font-weight:700;color:var(--color-orange);text-decoration:none;text-transform:uppercase;letter-spacing:0.2em;padding:1rem 2.5rem;border:2px solid var(--color-orange);margin-top:1rem;">Kontakt</a>
+
+    <!-- Navigation Links -->
+    <nav class="mobile-menu-nav">
+      <div class="mobile-menu-item">
+        <a href="#handwerk" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:clamp(1.75rem,8vw,2.5rem);font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;display:inline-block;">Das Handwerk</a>
+      </div>
+      <div class="mobile-menu-item">
+        <a href="#atelier" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:clamp(1.75rem,8vw,2.5rem);font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;display:inline-block;">Das Atelier</a>
+      </div>
+      <div class="mobile-menu-item">
+        <a href="#werke" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:clamp(1.75rem,8vw,2.5rem);font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;display:inline-block;">Die Werke</a>
+      </div>
+      <div class="mobile-menu-item">
+        <a href="#prozess" class="mobile-nav-link" style="font-family:var(--font-casta);font-size:clamp(1.75rem,8vw,2.5rem);font-weight:700;color:var(--color-creme);text-decoration:none;text-transform:uppercase;letter-spacing:0.04em;display:inline-block;">Der Prozess</a>
+      </div>
+    </nav>
+
+    <!-- CTA Anfrage -->
+    <div class="mobile-menu-cta-wrap">
+      <a href="#kontakt" class="mobile-nav-link" style="display:inline-block;font-family:var(--font-space-mono);font-size:0.875rem;font-weight:700;color:var(--color-orange);text-decoration:none;text-transform:uppercase;letter-spacing:0.2em;padding:1rem 3rem;border:2px solid var(--color-orange);">Anfrage stellen</a>
+    </div>
+
+    <!-- Stadtangabe unten -->
+    <p class="mobile-menu-cities">Fulda</p>
   </div>
 
   <!-- ============================================================ -->
   <!-- SECTION 00: HERO -->
   <!-- ============================================================ -->
+  <main id="main-content">
   <section id="hero" class="relative w-full h-screen overflow-hidden bg-[#4F1B37]">
     <div class="absolute inset-0">
-      <picture class="absolute inset-0">
-        <source media="(max-width: 767px)" srcset="/images/hero/rubens-mobile_with_tattoos.webp">
-        <img src="/images/hero/rubens_with_tattoos.webp" alt="Baroque Painting with Tattoos" class="w-full h-full object-cover parallax-bg">
+      <picture class="absolute inset-0" style="opacity:0; animation: fade-in 1.2s ease-out forwards;">
+        <source media="(max-width: 767px)" srcset="/images/hero/rubens-mobile-v1-botanical.webp">
+        <img src="/images/hero/rubens_tattoo_v1_florals.png" alt="Baroque Painting with Tattoos" class="w-full h-full object-cover parallax-bg">
       </picture>
       <div class="absolute inset-0 bg-[#4F1B37] opacity-45"></div>
-      <img src="/graphics/strahlen.svg" class="absolute top-0 left-0 w-[150vw] md:w-[100vw] h-auto max-w-none opacity-20 pointer-events-none animate-ray-pulse">
+      <img src="/graphics/strahlen.svg" alt="" aria-hidden="true" class="absolute top-0 left-0 w-[150vw] md:w-[100vw] h-auto max-w-none pointer-events-none" style="opacity:0; animation: strahlen-enter 1s ease-out 1.5s forwards, ray-pulse 5s ease-in-out 2.5s infinite;">
     </div>
 
-    <div class="absolute top-24 right-10 md:top-32 md:right-32 z-10 opacity-0" style="animation: scale-in 1s ease-out forwards; animation-delay: 0.5s;">
-      <img src="/graphics/sonne.svg" alt="Decorative Sun" class="w-52 md:w-60 lg:w-64 animate-sun-rotate">
+    <div class="absolute top-24 right-10 md:top-32 md:right-32 z-10 opacity-0" style="animation: scale-in 1s ease-out forwards; animation-delay: 1.4s;">
+      <img src="/graphics/sonne.svg" alt="" aria-hidden="true" class="w-52 md:w-60 lg:w-64 animate-sun-rotate">
     </div>
 
     <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-      <div class="text-center max-w-6xl opacity-0 pointer-events-auto" style="animation: scale-in 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.3s;">
-        <div class="hero-stagger-in p-12 md:p-20 flex justify-center" style="animation-delay: 0.8s;">
+      <div class="text-center max-w-6xl opacity-0 pointer-events-auto" style="animation: scale-in 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.6s;">
+        <div class="hero-stagger-in p-12 md:p-20 flex justify-center" style="animation-delay: 0.9s;">
           <img src="/logos/logo-start.svg" alt="Gunst & Tinte Logo" class="w-[280px] md:w-[480px] h-auto drop-shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
         </div>
       </div>
     </div>
 
     <div class="absolute bottom-32 left-1/2 -translate-x-1/2 z-30">
-      <div class="hero-stagger-in" style="animation-delay: 1.2s;">
+      <div class="hero-stagger-in" style="animation-delay: 1.8s;">
         <a href="#handwerk" class="inline-flex flex-col items-center group">
           <span class="font-mono text-sm uppercase tracking-[0.4em] text-orange-400 mb-4 group-hover:text-white transition-colors">Eintreten</span>
           <div class="w-16 h-16 rounded-full border-2 border-orange-500/30 flex items-center justify-center group-hover:bg-orange-600 group-hover:border-orange-600 transition-all duration-500">
@@ -961,11 +1614,7 @@
       </div>
     </div>
 
-    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 opacity-0" style="animation: fade-up 1s ease-out forwards; animation-delay: 2.5s;">
-      <a href="#handwerk" class="group flex flex-col items-center">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#EB5729" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-bounce-slow" style="opacity:0.6;"><polyline points="6 9 12 15 18 9"/></svg>
-      </a>
-    </div>
+    <!-- Zweiter Scroll-Pfeil entfernt (redundant, "Eintreten"-Button oben ist ausreichend) -->
 
     <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none"></div>
   </section>
@@ -977,16 +1626,16 @@
     <div class="absolute -top-48 -left-48 w-[600px] h-[600px] gradient-accent rounded-full"></div>
     <div class="absolute top-1/2 -right-48 w-[800px] h-[800px] gradient-accent rounded-full opacity-10"></div>
 
-    <section class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 py-24 md:py-40 relative z-10">
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 pt-24 md:pt-40 pb-10 md:pb-14 relative z-10">
 
       <header class="mb-24 md:mb-32 relative" id="main-header">
         <div class="relative flex items-end">
-          <span class="section-number-oversized" id="section-num-alt">01</span>
-          <h2 class="text-5xl md:text-8xl lg:text-9xl font-bold uppercase tracking-tighter relative z-10 leading-none pl-4 md:pl-12" id="section-title-alt">
+          <span class="section-number-oversized" id="section-num-alt" aria-hidden="true">01</span>
+          <h2 class="text-5xl md:text-8xl lg:text-9xl font-bold uppercase tracking-tighter relative z-10 leading-none pl-4 md:pl-12" id="section-title-alt" style="white-space: nowrap;">
             <span class="block">
               <span class="char">D</span><span class="char">a</span><span class="char">s</span>
             </span>
-            <span class="block">
+            <span class="block" style="white-space: nowrap;">
               <span class="char">H</span><span class="char">a</span><span class="char">n</span><span class="char">d</span><span class="char">w</span><span class="char">e</span><span class="char">r</span><span class="char">k</span>
             </span>
           </h2>
@@ -999,61 +1648,67 @@
           <div class="relative z-10 rounded-lg overflow-hidden border-[12px] border-white/10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)]">
             <img loading="lazy" src="/images/theresa/theresa-portrait.png" alt="Portrait Theresa - Tattoo Artist" class="portrait-img w-full h-auto object-cover grayscale brightness-90 hover:grayscale-0 hover:brightness-100 transition-all duration-1000">
           </div>
-          <div class="absolute -bottom-16 -right-16 w-64 h-64 rotating-strahlen z-0 opacity-40 mix-blend-multiply">
-            <img src="/graphics/strahlen.svg" alt="Decor" class="w-full h-full">
-          </div>
         </div>
 
         <div class="flex flex-col">
           <p class="drop-cap text-xl md:text-2xl leading-[1.8] opacity-90 font-medium">
-            In einer Zeit der digitalen Beliebigkeit ist die Tätowierkunst mein Weg, Beständigkeit zu manifestieren. Jeder Nadelstich ist ein Akt des Vertrauens und der Hingabe. In meinem Atelier verwandle ich persönliche Visionen in bleibende Ikonen, die klassische Eleganz mit einer dunklen, barocken Seele vereinen.
+            In einer Zeit des digitalen Wachstums ist die Tätowierkunst mein Weg, Beständigkeit zu manifestieren. Jedes Projekt bekommt seine Zeit für sich. Während alles um uns herum immer schneller wird, erlauben wir uns, langsam sein zu dürfen.
           </p>
         </div>
       </div>
 
       <!-- Full-screen Blockquote -->
-      <div id="quote-section" class="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] min-h-[100vh] flex items-center justify-center pt-32 md:pt-40 pb-24 md:pb-40" style="background-color: #F7EDC2;">
-        <div class="max-w-6xl px-6 md:px-12 text-center">
-          <blockquote id="quote-text" class="italic font-medium leading-tight" style="color: var(--color-dunkelgruen); font-size: clamp(36px, 6.5vw, 96px);">
-            <span class="quote-word">"Die</span> <span class="quote-word">Haut</span> <span class="quote-word">ist</span> <span class="quote-word">eine</span> <span class="quote-word">Chronik,</span><br>
-            <span class="relative inline-block">
-              <span class="quote-word">die</span> <span class="quote-word">niemals</span> <span class="quote-word">verblasst</span>
-              <svg class="absolute -bottom-2 left-0 w-full h-6 overflow-visible" viewBox="0 0 120 12" preserveAspectRatio="none">
-                <path d="M0,8 C20,2 40,14 60,8 C80,2 100,14 120,8" fill="none" stroke="#EB5729" stroke-width="3" stroke-linecap="round" class="underline-path" />
-              </svg>
-            </span><br>
-            <span class="quote-word">&ndash;</span> <span class="quote-word">wir</span> <span class="quote-word">schreiben</span> <span class="quote-word">ihre</span><br>
-            <span class="quote-word">Geschichte</span> <span class="quote-word">in</span> <span class="quote-word">Tinte."</span>
+      <div id="quote-section" class="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-screen flex items-center justify-center" style="background-color: #203D36;">
+        <!-- Tattoo needle glow dot -->
+        <div id="quote-needle" aria-hidden="true" style="position:absolute;width:9px;height:9px;border-radius:50%;background:#EB5729;box-shadow:0 0 14px 7px rgba(235,87,41,0.55);pointer-events:none;z-index:10;opacity:0;transform:translate(-50%,-50%);top:0;left:0;"></div>
+        <!-- Decorative rotating ink rings -->
+        <div id="quote-ring" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0;opacity:0;">
+          <svg id="quote-ring-svg" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:min(85vw,85vh);height:min(85vw,85vh);">
+            <circle cx="150" cy="150" r="108" stroke="#F7EDC2" stroke-width="0.7" stroke-opacity="0.25"/>
+            <circle cx="150" cy="150" r="128" stroke="#F7EDC2" stroke-width="0.35" stroke-dasharray="2 11" stroke-opacity="0.15"/>
+            <circle cx="150" cy="150" r="144" stroke="#F7EDC2" stroke-width="0.2" stroke-opacity="0.1"/>
+          </svg>
+        </div>
+        <div class="w-full px-8 md:px-20 text-center" style="max-width: 88vw; position: relative; z-index: 1;">
+          <blockquote id="quote-text" class="italic" style="color: #F7EDC2; font-size: clamp(36px, 5vw, 78px); line-height: 1.35; font-weight: 300; letter-spacing: -0.01em;">
+            <div class="quote-line"><span class="quote-reveal" style="display:inline-block;">&ldquo;Die Haut ist eine</span></div>
+            <div class="quote-line"><span class="quote-reveal" style="display:inline-block;font-weight:800;">Chronik,</span></div>
+            <div class="quote-line"><span class="quote-reveal" style="display:inline-block;position:relative;">die niemals verblasst<svg class="absolute overflow-visible" style="bottom:-0.15em;left:0;width:100%;height:0.35em;" viewBox="0 0 120 12" preserveAspectRatio="none"><path d="M0,8 C20,2 40,14 60,8 C80,2 100,14 120,8" fill="none" stroke="#EB5729" stroke-width="5" stroke-linecap="round" class="underline-path" /></svg></span></div>
+            <div class="quote-line"><span class="quote-reveal" style="display:inline-block;">&ndash; wir schreiben ihre</span></div>
+            <div class="quote-line"><span class="quote-reveal" style="display:inline-block;">Geschichte in <span id="quote-tinte" style="font-weight:800;color:var(--color-orange);">Tinte.&rdquo;</span></span></div>
           </blockquote>
         </div>
       </div>
 
-      <!-- Philosophy Grid -->
-      <div id="philosophy-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 md:mb-40">
-        <div class="philosophy-card p-10 rounded-xl">
-          <h4 class="font-mono text-xl font-bold text-orange mb-4 uppercase tracking-wider" style="color: var(--color-orange);">Die Chronik des Körpers</h4>
-          <p class="text-lg opacity-80 leading-relaxed">Tattoos sind mehr als Schmuck; sie sind Meilensteine der Identität. Ich entwickle Motive, die organisch mit der Anatomie fließen.</p>
+      <!-- Philosophy Statements -->
+      <div id="philosophy-grid" class="philosophy-statements mb-6 md:mb-10">
+        <div class="philosophy-item">
+          <span class="philosophy-number">I</span>
+          <h4 class="philosophy-title">Die Chronik des Körpers</h4>
+          <p class="philosophy-text">Tattoos sind mehr als Schmuck; sie sind Meilensteine der Identität. Ich entwickle Motive, die organisch mit der Anatomie fließen.</p>
         </div>
-        <div class="philosophy-card p-10 rounded-xl">
-          <h4 class="font-mono text-xl font-bold text-orange mb-4 uppercase tracking-wider" style="color: var(--color-orange);">Dunkle Präzision</h4>
-          <p class="text-lg opacity-80 leading-relaxed">Feinste Linienführung trifft auf tiefe Schattierungen. Meine Technik basiert auf dem Verständnis von Licht und Schatten.</p>
+        <div class="philosophy-item">
+          <span class="philosophy-number">II</span>
+          <h4 class="philosophy-title">Dunkle Präzision</h4>
+          <p class="philosophy-text">Feinste Linienführung trifft auf tiefe Schattierungen. Meine Technik basiert auf dem Verständnis von Licht und Schatten.</p>
         </div>
-        <div class="philosophy-card p-10 rounded-xl">
-          <h4 class="font-mono text-xl font-bold text-orange mb-4 uppercase tracking-wider" style="color: var(--color-orange);">Das Ritual der Tinte</h4>
-          <p class="text-lg opacity-80 leading-relaxed">Der Prozess ist so wertvoll wie das Ergebnis. Ich schaffe eine Atmosphäre der Ruhe, in der Kunst unter die Haut geht.</p>
+        <div class="philosophy-item">
+          <span class="philosophy-number">III</span>
+          <h4 class="philosophy-title">Das Ritual der Tinte</h4>
+          <p class="philosophy-text">Der Prozess ist so wertvoll wie das Ergebnis. Ich schaffe eine Atmosphäre der Ruhe, in der Kunst unter die Haut geht.</p>
         </div>
       </div>
 
       <!-- Centered Signature -->
-      <div class="flex flex-col items-center text-center">
-        <div class="w-32 h-px bg-orange mb-8" style="background: var(--color-orange);"></div>
-        <p class="font-mono text-sm tracking-[0.3em] uppercase opacity-40 mb-6">Permanente Handschrift,</p>
-        <div class="relative">
-          <svg class="w-72 h-32 fill-none stroke-[1]" style="stroke: var(--color-dunkelgruen);" viewBox="0 0 300 120" id="signature-alt">
-            <path d="M25,65 C45,25 65,85 85,45 C105,5 125,105 145,55 C165,5 185,85 205,45 C225,5 245,65 265,35 C285,5 305,55 325,45" opacity="0.1" />
-            <text x="50%" y="85" font-family="var(--font-casta)" font-size="48" fill="currentColor" stroke="none" class="italic font-bold tracking-tight" text-anchor="middle">Theresa</text>
-          </svg>
-        </div>
+      <div class="flex flex-col items-center text-center mt-4" id="sig-block">
+        <p class="font-mono text-xs uppercase mb-5" id="sig-label" style="letter-spacing:0.38em; opacity:0;">Permanente Handschrift</p>
+        <div id="sig-divider" style="width:200px; height:1px; background:linear-gradient(to right,transparent,var(--color-orange) 40%,transparent); margin-bottom:2.25rem; transform:scaleX(0); transform-origin:center;"></div>
+        <svg style="width:min(560px,88vw); height:auto; overflow:visible;" viewBox="0 0 560 148" fill="none" id="signature-alt">
+          <!-- Hand-drawn squiggle, animated via stroke-dashoffset -->
+          <path id="sig-squiggle" d="M20,85 C55,45 95,115 145,78 C195,42 240,108 295,76 C350,44 395,110 445,73 C490,44 520,88 540,80" stroke="var(--color-orange)" stroke-width="3.2" fill="none" opacity="0.72" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="sig-squiggle-2" d="M18,92 C60,54 98,122 152,85 C206,48 248,116 300,84 C352,52 398,118 448,80 C492,50 522,96 542,88" stroke="var(--color-dunkelgruen)" stroke-width="1.6" fill="none" opacity="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+          <text id="sig-text" x="280" y="120" font-family="var(--font-casta)" font-size="108" fill="var(--color-dunkelgruen)" stroke="none" font-style="italic" font-weight="700" text-anchor="middle" letter-spacing="-3">Theresa</text>
+        </svg>
       </div>
     </section>
   </div>
@@ -1062,25 +1717,75 @@
   <div style="height: 120px; background: linear-gradient(to bottom, var(--color-creme), var(--color-dunkelgruen));"></div>
 
   <!-- ============================================================ -->
-  <!-- SECTION 02: DIE WERKE -->
+  <!-- SECTION 02: DAS ATELIER -->
+  <!-- ============================================================ -->
+  <section id="atelier" class="relative w-full min-h-screen overflow-hidden" style="background: var(--color-dunkelgruen);">
+    <!-- Forest background (parallax + zoom) -->
+    <div class="absolute inset-0 overflow-hidden">
+      <img id="atelier-forest-bg" src="/images/backgrounds/forest.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="will-change: transform;">
+      <div class="absolute inset-0" style="background: var(--color-burgund); opacity: 0.3; mix-blend-mode: multiply;"></div>
+      <div class="absolute inset-0 atelier-vignette"></div>
+    </div>
+
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 py-24 md:py-40">
+      <!-- Header -->
+      <header class="mb-16 md:mb-24 relative">
+        <div class="relative flex items-end gap-4">
+          <span id="atelier-num" aria-hidden="true" style="font-family: var(--font-space-mono); font-size: clamp(100px, 18vw, 200px); font-weight: 700; color: var(--color-orange); opacity: 0.2; line-height: 0.8;">02</span>
+          <h2 id="atelier-title" style="font-size: clamp(3rem, 7vw, 6rem); font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.95; color: var(--color-creme); position: relative; z-index: 2;">
+            Das<br>Atelier
+          </h2>
+        </div>
+      </header>
+
+      <!-- 12-column grid: 7-col text, 5-col image -->
+      <div class="atelier-grid" style="display: grid; grid-template-columns: 7fr 5fr; gap: 4rem; align-items: start;">
+        <!-- Glass card with text -->
+        <div class="atelier-glass-card" id="atelier-card">
+          <blockquote style="font-size: clamp(1.25rem, 2.5vw, 1.6rem); font-style: italic; font-weight: 500; line-height: 1.5; margin-bottom: 2rem; color: var(--color-creme);">
+            &bdquo;Mit &bdquo;Gunst und Tinte&ldquo; habe ich mir meinen Traum eines eigenen, kleinen Ateliers erfüllt.&ldquo;
+          </blockquote>
+          <div style="width: 40px; height: 2px; background: var(--color-orange); margin-bottom: 2rem;"></div>
+          <div id="atelier-paragraphs">
+            <p class="atelier-body-p" style="font-size: 1.05rem; line-height: 1.8; opacity: 0.9; color: var(--color-creme); margin-bottom: 1.25rem;">
+              Ganz ungestört haben wir genug Zeit, dein Wunschmotiv in einer gemütlichen Wohnzimmeratmosphäre zu verwirklichen.
+            </p>
+            <p class="atelier-body-p" style="font-size: 1.05rem; line-height: 1.8; opacity: 0.9; color: var(--color-creme); margin-bottom: 1.25rem;">
+              Ein bisschen obskur ist es hier und da, genug Bilder an den Wänden gibt es nie. Alles, wofür mein Herz schlägt, hat einen Platz in diesen vier Wänden und bald vielleicht auch unter deiner Haut.
+            </p>
+          </div>
+        </div>
+
+        <!-- Image with ornate frame -->
+        <div class="relative" id="atelier-image-wrap">
+          <div class="atelier-image-frame relative z-2" style="aspect-ratio: 3/4;">
+            <div class="atelier-corner-tr"></div>
+            <div class="atelier-corner-bl"></div>
+            <img loading="lazy" src="/images/portfolio/portfolio_1761928776900_IMG_0551.jpeg" alt="Das Atelier — Roter Stuhl">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 03: DIE WERKE -->
   <!-- ============================================================ -->
   <div id="werke" style="background: var(--color-dunkelgruen); color: var(--color-creme);">
 
-    <!-- Sun decoration -->
-    <div style="position:fixed; bottom:-80px; left:-80px; z-index:5; opacity:0.1; animation: sun-rotate 50s linear infinite; pointer-events:none;">
-      <img src="/graphics/sonne.svg" alt="" style="width:260px;">
-    </div>
 
     <header style="max-width:1440px; margin:0 auto; padding:80px 48px 48px;">
       <div style="display:flex; align-items:baseline; gap:20px;">
-        <span style="font-family:var(--font-space-mono); font-size:clamp(60px,12vw,140px); font-weight:700; color:var(--color-orange); opacity:0.2; line-height:0.8;" id="sec-num">02</span>
+        <span style="font-family:var(--font-space-mono); font-size:clamp(60px,12vw,140px); font-weight:700; color:var(--color-orange); opacity:0.2; line-height:0.8;" id="sec-num" aria-hidden="true">03</span>
       </div>
       <h2 class="werke-hero-statement" id="werke-hero-title">
         <span>Die</span><br>
         <span class="outline-text">Werke</span>
       </h2>
       <p style="font-family:var(--font-space-mono); font-size:12px; letter-spacing:0.25em; text-transform:uppercase; opacity:0.35; margin-top:20px;">
-        Fineline &middot; Ornamental &middot; Blackwork &middot; Natur
+        Fineline &middot; Ornamental &middot; Blackwork &middot; Natur &middot; Traditional &middot; Mikrorealismus
       </p>
     </header>
 
@@ -1089,35 +1794,32 @@
     <!-- Ticker -->
     <div class="ticker-wrap" style="margin:0 0 40px;">
       <div class="ticker">
-        <span>Fineline</span><span>Ornamental</span><span>Blackwork</span><span>Natur</span>
+        <span>Fineline</span><span>Ornamental</span><span>Blackwork</span><span>Natur</span><span>Traditional</span><span>Mikrorealismus</span>
         <span>Portraits</span><span>Botanik</span><span>Dark Art</span><span>Barock</span>
-        <span>Fineline</span><span>Ornamental</span><span>Blackwork</span><span>Natur</span>
+        <span>Fineline</span><span>Ornamental</span><span>Blackwork</span><span>Natur</span><span>Traditional</span><span>Mikrorealismus</span>
         <span>Portraits</span><span>Botanik</span><span>Dark Art</span><span>Barock</span>
       </div>
     </div>
 
     <!-- Row 1 -->
-    <div class="showcase-row" id="row1" style="padding:0 4px;">
-      <div class="showcase-item" style="width:45%; aspect-ratio:3/4;" data-img>
-        <img loading="lazy" src="/images/portfolio/portfolio_1761928803466_8E8E9061-FB9C-4655-9D84-CA9983F18036.jpeg" alt="Pfingstrose">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Fineline</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Pfingstrose</h3>
+    <div class="showcase-row" id="row1" style="padding:0 4px; align-items:flex-start;">
+      <div style="width:45%; display:flex; flex-direction:column;">
+        <div class="showcase-item" style="aspect-ratio:3/4;" data-img>
+          <img loading="lazy" src="/images/portfolio/portfolio_1761928803466_8E8E9061-FB9C-4655-9D84-CA9983F18036.jpeg" alt="Pfingstrose">
         </div>
+        <p class="showcase-label">Fineline</p>
       </div>
-      <div class="showcase-item" style="width:25%; aspect-ratio:2/3;" data-img>
-        <img loading="lazy" src="/images/portfolio/portfolio_1760692614567_IMG_6564_VSCO.jpeg" alt="Dobermann">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Blackwork</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Dobermann</h3>
+      <div style="width:25%; display:flex; flex-direction:column;">
+        <div class="showcase-item" style="aspect-ratio:2/3;" data-img>
+          <img loading="lazy" src="/images/portfolio/portfolio_1760692614567_IMG_6564_VSCO.jpeg" alt="Dobermann">
         </div>
+        <p class="showcase-label">Blackwork</p>
       </div>
-      <div class="showcase-item" style="width:30%; aspect-ratio:3/4;" data-img>
-        <img loading="lazy" src="/images/portfolio/portfolio_1761987529550_E3A53ECB-C9C2-4B62-81D8-D6FF7E48825C.jpeg" alt="Huhn">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Natur</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Federvieh</h3>
+      <div style="width:30%; display:flex; flex-direction:column;">
+        <div class="showcase-item" style="aspect-ratio:3/4;" data-img>
+          <img loading="lazy" src="/images/portfolio/portfolio_1761987529550_E3A53ECB-C9C2-4B62-81D8-D6FF7E48825C.jpeg" alt="Huhn">
         </div>
+        <p class="showcase-label">Natur</p>
       </div>
     </div>
 
@@ -1140,27 +1842,24 @@
     </div>
 
     <!-- Row 2 -->
-    <div class="showcase-row" id="row2" style="padding:0 4px;">
-      <div class="showcase-item" style="width:30%; aspect-ratio:1/1;" data-img>
-        <img loading="lazy" src="/images/portfolio/portfolio_1761928949302_1D97BB9B-64F9-4FF4-B0D6-AF766F6F810B.jpeg" alt="Ornament">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Ornamental</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Sternzeichen</h3>
+    <div class="showcase-row" id="row2" style="padding:0 4px; align-items:flex-start;">
+      <div style="width:30%; display:flex; flex-direction:column;">
+        <div class="showcase-item" style="aspect-ratio:1/1;" data-img>
+          <img loading="lazy" src="/images/portfolio/portfolio_1761928949302_1D97BB9B-64F9-4FF4-B0D6-AF766F6F810B.jpeg" alt="Ornament">
         </div>
+        <p class="showcase-label">Ornamental</p>
       </div>
-      <div class="showcase-item" style="width:40%; aspect-ratio:4/5;" data-img>
-        <img loading="lazy" src="/images/portfolio/portfolio_1761928865399_IMG_0396.jpeg" alt="Atelier">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Atelier</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Im Atelier</h3>
+      <div style="width:40%; display:flex; flex-direction:column;">
+        <div class="showcase-item" style="aspect-ratio:4/5;" data-img>
+          <img loading="lazy" src="/images/portfolio/portfolio_1761928865399_IMG_0396.jpeg" alt="Atelier">
         </div>
+        <p class="showcase-label">Atelier</p>
       </div>
-      <div class="showcase-item" style="width:30%; aspect-ratio:2/3;" data-img>
-        <img loading="lazy" src="/images/portfolio/portfolio_1761987462632_B664AD65-ACE0-4017-BFCA-8AE0CC3646D7.jpeg" alt="Dolch">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Blackwork</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Klinge & Mond</h3>
+      <div style="width:30%; display:flex; flex-direction:column;">
+        <div class="showcase-item" style="aspect-ratio:2/3;" data-img>
+          <img loading="lazy" src="/images/portfolio/portfolio_1761987462632_B664AD65-ACE0-4017-BFCA-8AE0CC3646D7.jpeg" alt="Dolch">
         </div>
+        <p class="showcase-label">Blackwork</p>
       </div>
     </div>
 
@@ -1175,39 +1874,33 @@
     </div>
 
     <!-- Row 3 -->
-    <div class="showcase-row" id="row3" style="padding:0 4px;">
-      <div class="showcase-item" style="width:35%; aspect-ratio:3/4;" data-img>
-        <img loading="lazy" src="/images/portfolio/portfolio_1761987488366_IMG_0049.jpeg" alt="Tote Bag">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Atelier</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Merch</h3>
+    <div class="showcase-row" id="row3" style="padding:0 4px; align-items:flex-start;">
+      <div style="width:35%; display:flex; flex-direction:column;">
+        <div class="showcase-item" style="aspect-ratio:3/4;" data-img>
+          <img loading="lazy" src="/images/portfolio/portfolio_1761987488366_IMG_0049.jpeg" alt="Tote Bag">
         </div>
+        <p class="showcase-label">Atelier</p>
       </div>
-      <div class="showcase-item" style="width:30%; aspect-ratio:1/1;" data-img>
-        <img loading="lazy" src="/images/portfolio/portfolio_1761987548284_2AFF0D9A-DE29-4E32-8060-F2D9344BE5E5.jpeg" alt="Pferd">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Natur</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Freundschaft</h3>
+      <div style="width:30%; display:flex; flex-direction:column;">
+        <div class="showcase-item" style="aspect-ratio:1/1;" data-img>
+          <img loading="lazy" src="/images/portfolio/portfolio_1761987548284_2AFF0D9A-DE29-4E32-8060-F2D9344BE5E5.jpeg" alt="Pferd">
         </div>
+        <p class="showcase-label">Natur</p>
       </div>
-      <div class="showcase-item" style="width:35%; aspect-ratio:2/3;" data-img>
-        <img loading="lazy" src="/images/portfolio/portfolio_1761987445382_IMG_0371.jpeg" alt="Prozess">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Atelier</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Das Ritual</h3>
+      <div style="width:35%; display:flex; flex-direction:column;">
+        <div class="showcase-item" style="aspect-ratio:2/3;" data-img>
+          <img loading="lazy" src="/images/portfolio/portfolio_1761987445382_IMG_0371.jpeg" alt="Prozess">
         </div>
+        <p class="showcase-label">Atelier</p>
       </div>
     </div>
 
     <!-- Row 4: cinematic wide -->
-    <div class="showcase-row" id="row4" style="padding:0 4px; margin-bottom:0;">
+    <div class="showcase-row" id="row4" style="padding:0 4px; margin-bottom:0; align-items:flex-start; flex-direction:column;">
       <div class="showcase-item" style="width:100%; aspect-ratio:21/9;" data-img>
         <img loading="lazy" src="/images/portfolio/portfolio_1761987507999_IMG_0344.jpeg" alt="Hände">
-        <div class="caption-bar">
-          <span style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-orange);">Atelier</span>
-          <h3 style="font-size:20px; font-weight:600; margin-top:4px;">Hände</h3>
-        </div>
       </div>
+      <p class="showcase-label">Atelier</p>
     </div>
 
     <!-- CTA -->
@@ -1219,83 +1912,87 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- SECTION 03: DAS ATELIER -->
-  <!-- ============================================================ -->
-  <section id="atelier" class="relative w-full min-h-screen overflow-hidden" style="background: var(--color-dunkelgruen);">
-    <!-- Forest background (parallax + zoom) -->
-    <div class="absolute inset-0 overflow-hidden">
-      <img id="atelier-forest-bg" src="/images/backgrounds/forest.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="will-change: transform;">
-      <div class="absolute inset-0" style="background: var(--color-burgund); opacity: 0.3; mix-blend-mode: multiply;"></div>
-      <div class="absolute inset-0 atelier-vignette"></div>
-    </div>
 
-    <!-- Floating sonne decorations -->
-    <div class="atelier-sonne-deco atelier-spin" style="top: 5%; left: -5%; width: 200px;">
-      <img src="/graphics/sonne.svg" alt="" class="w-full h-auto">
-    </div>
-    <div class="atelier-sonne-deco atelier-float" style="bottom: 10%; right: -3%; width: 150px;">
-      <img src="/graphics/sonne.svg" alt="" class="w-full h-auto">
-    </div>
-    <div class="atelier-sonne-deco atelier-spin" style="top: 60%; left: 45%; width: 100px; opacity: 0.04;">
-      <img src="/graphics/sonne.svg" alt="" class="w-full h-auto">
-    </div>
 
-    <!-- Content -->
-    <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 py-24 md:py-40">
-      <!-- Header -->
-      <header class="mb-16 md:mb-24 relative">
-        <div class="relative flex items-end gap-4">
-          <span id="atelier-num" style="font-family: var(--font-space-mono); font-size: clamp(100px, 18vw, 200px); font-weight: 700; color: var(--color-orange); opacity: 0.2; line-height: 0.8;">03</span>
-          <h2 id="atelier-title" style="font-size: clamp(3rem, 7vw, 6rem); font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.95; color: var(--color-creme); position: relative; z-index: 2;">
-            Das<br>Atelier
-          </h2>
-        </div>
+  <!-- ============================================================ -->
+  <!-- SECTION: PROZESS -->
+  <!-- ============================================================ -->
+  <section id="prozess" class="relative overflow-hidden" style="background: var(--color-burgund);">
+    <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 pt-24 md:pt-40 pb-24 md:pb-40 relative z-10">
+
+      <!-- Decorative background number -->
+      <span aria-hidden="true" style="position:absolute;top:2rem;right:4vw;font-family:var(--font-space-mono);font-size:clamp(120px,20vw,240px);font-weight:700;color:var(--color-creme);opacity:0.04;line-height:1;user-select:none;pointer-events:none;">04</span>
+
+      <!-- Section header -->
+      <header class="mb-16 md:mb-24">
+        <p style="font-family:var(--font-space-mono);font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--color-orange);margin-bottom:1.25rem;opacity:0.85;">Der Prozess</p>
+        <h2 style="font-family:var(--font-casta);font-size:clamp(2.5rem,6vw,5.5rem);font-weight:700;color:var(--color-creme);line-height:1.1;letter-spacing:-0.02em;">Dein Weg zum eigenen Tattoo</h2>
       </header>
 
-      <!-- 12-column grid: 7-col text, 5-col image -->
-      <div class="atelier-grid" style="display: grid; grid-template-columns: 7fr 5fr; gap: 4rem; align-items: start;">
-        <!-- Glass card with text -->
-        <div class="atelier-glass-card" id="atelier-card">
-          <blockquote style="font-size: clamp(1.25rem, 2.5vw, 1.6rem); font-style: italic; font-weight: 500; line-height: 1.5; margin-bottom: 2rem; color: var(--color-creme);">
-            &bdquo;Gunst und Tinte &mdash; zwei Worte, die alles sagen, betritt man mein kleines Studio im Herzen von Petersberg.&ldquo;
-          </blockquote>
-          <div style="width: 40px; height: 2px; background: var(--color-orange); margin-bottom: 2rem;"></div>
-          <div id="atelier-paragraphs">
-            <p class="atelier-body-p" style="font-size: 1.05rem; line-height: 1.8; opacity: 0.9; color: var(--color-creme); margin-bottom: 1.25rem;">
-              Liebe zu Details, Kunst und Obskuritäten steckt in jedem Winkel — es gibt viel zu entdecken. Hier wurde viel upgecycled.
-            </p>
-            <p class="atelier-body-p" style="font-size: 1.05rem; line-height: 1.8; opacity: 0.9; color: var(--color-creme); margin-bottom: 1.25rem;">
-              Nachhaltigkeit spiegelt sich in der Einrichtung wie in meinen Materialien: weitestgehend plastikfrei und wiederverwendbar, selbstverständlich unter allen hygienischen Standards.
-            </p>
-            <p class="atelier-body-p" style="font-size: 1.05rem; line-height: 1.8; opacity: 0.9; color: var(--color-creme);">
-              Ich hoffe, dir gefällt die Wohnzimmeratmosphäre — und wir haben eine entspannte, kreative Zeit zusammen.
-            </p>
-          </div>
+      <!-- Process steps grid -->
+      <div id="prozess-grid" class="prozess-statements">
+
+        <div class="prozess-item">
+          <span class="prozess-number">I</span>
+          <h4 class="prozess-title">Anfrage</h4>
+          <p class="prozess-text">Füll das Anfrageformular mit allen Infos zu deinem Wunschmotiv aus – Körperstelle, Größe, Stilrichtung und ggf. ein Referenzbild. Je mehr du mir mitgibst, desto besser kann ich mich vorbereiten.</p>
         </div>
 
-        <!-- Image with ornate frame -->
-        <div class="relative" id="atelier-image-wrap">
-          <div class="absolute -inset-16 z-0 opacity-20" style="pointer-events: none;">
-            <img src="/graphics/strahlen.svg" alt="" class="w-full h-full" style="animation: atelier-sonne-spin 30s linear infinite;">
-          </div>
-          <div class="atelier-image-frame relative z-2" style="aspect-ratio: 3/4;">
-            <div class="atelier-corner-tr"></div>
-            <div class="atelier-corner-bl"></div>
-            <img loading="lazy" src="/images/portfolio/portfolio_1761928776900_IMG_0551.jpeg" alt="Das Atelier — Roter Stuhl">
-          </div>
+        <div class="prozess-item">
+          <span class="prozess-number">II</span>
+          <h4 class="prozess-title">Gespräch</h4>
+          <p class="prozess-text">Ich melde mich in den kommenden Tagen mit einem Terminvorschlag. Hier besprechen wir gemeinsam dein Motiv, klären offene Fragen und entwickeln ein Konzept, das wirklich zu dir passt.</p>
         </div>
+
+        <div class="prozess-item">
+          <span class="prozess-number">III</span>
+          <h4 class="prozess-title">Termin</h4>
+          <p class="prozess-text">Wir vereinbaren einen Termin in meinem Atelier – montags bis donnerstags. Bei Neumotiven und größeren Projekten kann vorab eine Anzahlung anfallen, die mit dem Endpreis verrechnet wird.</p>
+        </div>
+
+        <div class="prozess-item prozess-item--last">
+          <span class="prozess-number">IV</span>
+          <h4 class="prozess-title">Das Tattoo</h4>
+          <p class="prozess-text">Der eigentliche Moment: In einer ruhigen, gemütlichen Atmosphäre erschaffen wir gemeinsam etwas Bleibendes. Etwas, das nur für dich ist – für immer.</p>
+        </div>
+
       </div>
+
     </div>
   </section>
 
   <!-- ============================================================ -->
-  <!-- SECTION 04: KONTAKT -->
+  <!-- SECTION: GUTSCHEINE -->
+  <!-- ============================================================ -->
+  <div id="gutscheine" style="background: var(--color-dunkelgruen); border-top: 1px solid rgba(247,237,194,0.1);">
+    <div style="max-width:1440px; margin:0 auto; padding:80px 48px; display:flex; align-items:center; justify-content:space-between; gap:3rem; flex-wrap:wrap;">
+      <div style="flex:1; min-width:280px;">
+        <p style="font-family:var(--font-space-mono); font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--color-orange); margin-bottom:1rem; opacity:0.8;">Ein Geschenk der Beständigkeit</p>
+        <h3 style="font-family:var(--font-casta); font-size:clamp(2rem,4vw,3.5rem); font-weight:700; color:var(--color-creme); line-height:1.15; margin-bottom:1.5rem;">Gutscheine</h3>
+        <p style="font-family:var(--font-space-mono); font-size:13px; line-height:1.9; color:rgba(247,237,194,0.7); max-width:480px;">
+          Du möchtest jemandem etwas wirklich Bleibendes schenken? Bei Gunst und Tinte sind Gutscheine erhältlich &mdash; für alle, die einem geliebten Menschen die Möglichkeit geben möchten, sich sein Wunschmotiv verwirklichen zu lassen.
+        </p>
+      </div>
+      <div style="flex-shrink:0;">
+        <a href="#kontakt" style="display:inline-block; padding:1rem 2.5rem; border:1px solid var(--color-creme); color:var(--color-creme); font-family:var(--font-space-mono); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; text-decoration:none; transition:background 0.3s, color 0.3s;" onmouseover="this.style.background='var(--color-creme)';this.style.color='var(--color-dunkelgruen)';" onmouseout="this.style.background='transparent';this.style.color='var(--color-creme)';">
+          Anfrage stellen →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 05: KONTAKT -->
   <!-- ============================================================ -->
   <div id="kontakt" style="background: var(--color-dunkelgruen);">
     <!-- Full-width painting image -->
     <div class="kontakt-image-section" id="kontaktImageSection">
-      <img loading="lazy" src="/images/backgrounds/painting_closeup_man_with_face_tattoos_background.webp" alt="Baroque painting closeup with face tattoos" id="kontaktHeroImage">
+      <img loading="lazy" src="/images/backgrounds/painting_face_tattoo.webp" alt="Baroque painting closeup with face tattoos" id="kontaktHeroImage">
+      <div class="kontakt-image-overlay">
+        <p class="kontakt-overlay-eyebrow">Schritt für Schritt zu deinem Tattoo</p>
+        <h2 class="kontakt-overlay-title">Der Weg zu<br>deinem Tattoo</h2>
+      </div>
+      <span class="kontakt-overlay-number" aria-hidden="true">05</span>
     </div>
 
     <!-- Form section -->
@@ -1303,8 +2000,8 @@
       <div class="kontakt-form-inner" id="formInner">
         <!-- Left: Info -->
         <div id="infoCol">
-          <div class="kontakt-section-number">04</div>
-          <h2 class="kontakt-section-title">Deine<br>Zeremonie</h2>
+          <div class="kontakt-section-number">05</div>
+          <h2 class="kontakt-section-title">Deine<br>Anfrage</h2>
           <div class="kontakt-divider"></div>
           <p class="kontakt-section-subtitle">
             Jedes Tattoo beginnt mit einem Gespräch. Erzähle mir von deiner Vision — ich verwandle sie in permanente Kunst.
@@ -1331,25 +2028,114 @@
 
         <!-- Right: Form -->
         <div id="formCol">
-          <form id="contactForm">
-            <div class="form-group">
-              <input type="text" class="form-input" placeholder=" " required>
-              <label class="form-label">Name</label>
+          <form id="tattoo-anfrage-form" class="tattoo-form" novalidate>
+            <span class="form-section-label">Kontaktdaten</span>
+            <div class="form-row">
+              <div class="form-group floating">
+                <input type="text" id="vorname" name="vorname" required placeholder=" " autocomplete="given-name">
+                <label for="vorname">Vorname *</label>
+              </div>
+              <div class="form-group floating">
+                <input type="text" id="nachname" name="nachname" required placeholder=" " autocomplete="family-name">
+                <label for="nachname">Nachname *</label>
+              </div>
             </div>
-            <div class="form-group">
-              <input type="email" class="form-input" placeholder=" " required>
-              <label class="form-label">E-Mail</label>
+            <div class="form-row">
+              <div class="form-group floating">
+                <input type="email" id="email" name="email" required placeholder=" " autocomplete="email">
+                <label for="email">E-Mail *</label>
+              </div>
+              <div class="form-group floating">
+                <input type="tel" id="telefon" name="telefon" required placeholder=" " autocomplete="tel">
+                <label for="telefon">Handynummer *</label>
+              </div>
             </div>
-            <div class="form-group">
-              <textarea class="form-textarea" placeholder=" " required></textarea>
-              <label class="form-label">Deine Vision</label>
+            <div class="form-row">
+              <div class="form-group floating">
+                <input type="text" id="strasse" name="strasse" required placeholder=" " autocomplete="street-address">
+                <label for="strasse">Straße &amp; Hausnummer *</label>
+              </div>
+              <div class="form-group floating">
+                <input type="text" id="plz-ort" name="plz-ort" required placeholder=" ">
+                <label for="plz-ort">PLZ &amp; Ort *</label>
+              </div>
             </div>
-            <button type="submit" class="submit-button">Absenden</button>
+            <span class="form-section-label">Tattoowunsch</span>
+            <div class="form-group floating full-width">
+              <textarea id="motiv" name="motiv" required placeholder=" " rows="3"></textarea>
+              <label for="motiv">Motiv *</label>
+            </div>
+            <div class="form-row">
+              <div class="form-group floating">
+                <input type="text" id="koerperstelle" name="koerperstelle" required placeholder=" ">
+                <label for="koerperstelle">Körperstelle *</label>
+              </div>
+              <div class="form-group floating">
+                <input type="text" id="groesse" name="groesse" required placeholder=" " inputmode="decimal">
+                <label for="groesse">Größe (ca. in cm) *</label>
+              </div>
+            </div>
+            <div class="form-group full-width">
+              <label class="select-float-label">Stilrichtung *</label>
+              <select id="stilrichtung" name="stilrichtung" required class="tattoo-select">
+                <option value="" disabled selected></option>
+                <option value="fineline">Fineline</option>
+                <option value="blackwork">Blackwork</option>
+                <option value="traditional">Traditional</option>
+                <option value="mikrorealismus">Mikrorealismus</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <div class="file-upload-wrapper">
+                <input type="file" id="referenz" name="referenz" accept="image/*" class="file-input-hidden" aria-describedby="referenz-hint referenz-name">
+                <label for="referenz" class="file-btn">Referenzbild hinzufügen →</label>
+                <p class="file-hint" id="referenz-hint">Optional – bitte kein KI-generiertes Bild</p>
+                <p class="file-name-display" id="referenz-name" aria-live="polite"></p>
+              </div>
+            </div>
+            <div class="form-group floating full-width">
+              <textarea id="beschreibung" name="beschreibung" required placeholder=" " rows="5"></textarea>
+              <label for="beschreibung">Beschreibung &amp; weitere Wünsche *</label>
+            </div>
+            <span class="form-section-label">Bestätigung</span>
+            <div class="form-check">
+              <input type="checkbox" id="check-18" name="check-18" required>
+              <label for="check-18">Ich bin mindestens 18 Jahre alt. *</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="check-agb" name="check-agb" required>
+              <label for="check-agb">Mit dem Absenden dieses Formulars erkläre ich mich mit den Geschäftsbedingungen einverstanden. *</label>
+            </div>
+            <button type="submit" id="form-submit" class="tattoo-form-submit" disabled>
+              Anfrage absenden
+            </button>
+            <div id="form-success" class="form-success-msg" style="display:none;">
+              Danke für deine Anfrage! Ich melde mich in den kommenden Tagen bei dir. 🧡
+            </div>
           </form>
+
+          <!-- Buchungshinweise accordion -->
+          <div class="kontakt-hinweise">
+            <button class="kontakt-hinweise-toggle" id="hinweise-toggle" aria-expanded="false" aria-controls="hinweise-content">
+              <span>Buchungshinweise & Stornoregeln</span>
+              <svg class="toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="kontakt-hinweise-content" id="hinweise-content" role="region" aria-labelledby="hinweise-toggle">
+              <div class="kontakt-info-text" style="padding: 1rem 0 0.5rem;">
+                <p>Ich werde mich nach Erhalt deiner Anfrage in den kommenden Tagen mit einem Terminvorschlag bei dir melden. Meine Wochenarbeitszeit findet montags bis donnerstags statt.</p>
+                <p>Bei Neukunden und größeren Motiven behalte ich mir vor, eine Anzahlung zu nehmen, die mit dem Endpreis verrechnet wird. Absagen müssen mindestens sieben Werktage vorher erfolgen — andernfalls wird die Anzahlung für den Mehraufwand einbehalten. Bei fristgerechter Absage erhältst du einen Gutschein im Wert der Anzahlung.</p>
+                <p>Erscheinst du ohne Absage nicht oder kommst zu spät, steht dir eine Schadensersatzleistung in 50%iger Höhe des vereinbarten Budgets bevor (§ 615 BGB).</p>
+                <p>Weitere Informationen zu den nächsten Booking-Terminen findest du auf meiner Instagramseite. ✨</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  </main><!-- /#main-content -->
 
   <!-- ============================================================ -->
   <!-- FOOTER -->
@@ -1375,23 +2161,38 @@
     </div>
     <div class="footer-bottom">
       <p class="footer-copyright">&copy; 2026 Gunst & Tinte. Alle Rechte vorbehalten.</p>
-      <p class="footer-locations">Berlin &middot; Stuttgart</p>
+      <p class="footer-locations">Fulda</p>
     </div>
   </footer>
 
   <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <button id="close-lb" style="position:absolute; top:24px; right:24px; background:none; border:none; color:var(--color-creme); cursor:pointer; z-index:1001;">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Bildvorschau">
+    <button id="close-lb" aria-label="Bildvorschau schließen" style="position:absolute; top:24px; right:24px; background:none; border:none; color:var(--color-creme); cursor:pointer; z-index:1001; padding:12px; min-width:48px; min-height:48px; display:flex; align-items:center; justify-content:center;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
     <img id="lb-img" src="" alt="">
   </div>
+
+  <!-- ============================================================ -->
+  <!-- GSAP (hier geladen, damit HTML-Parsing nicht blockiert wird) -->
+  <!-- ============================================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <!-- ============================================================ -->
   <!-- UNIFIED SCRIPT -->
   <!-- ============================================================ -->
   <script>
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    let isMobile = window.innerWidth <= 768;
+    window.addEventListener('resize', () => {
+      const wasDesktop = !isMobile;
+      isMobile = window.innerWidth <= 768;
+      // Refresh ScrollTrigger when crossing the breakpoint
+      if (wasDesktop !== !isMobile) ScrollTrigger.refresh();
+    }, { passive: true });
 
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -1400,34 +2201,82 @@
       const mobileMenu = document.getElementById('mobile-menu');
       const mobileMenuClose = document.getElementById('mobile-menu-close');
       if (mobileMenuBtn && mobileMenu) {
-        const openMenu = () => { mobileMenu.style.display = 'flex'; requestAnimationFrame(() => { mobileMenu.style.opacity = '1'; }); document.body.style.overflow = 'hidden'; };
-        const closeMenu = () => { mobileMenu.style.opacity = '0'; setTimeout(() => { mobileMenu.style.display = 'none'; }, 300); document.body.style.overflow = ''; };
+        const menuLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+
+        const openMenu = () => {
+          mobileMenu.style.display = 'flex';
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+          requestAnimationFrame(() => {
+            mobileMenu.style.opacity = '1';
+            // Stagger-Einblendung der Links (mit CSS-Fallback falls GSAP nicht lädt)
+            try {
+              gsap.fromTo(menuLinks,
+                { y: 48, opacity: 0 },
+                { y: 0, opacity: 1, stagger: 0.09, duration: 0.55, ease: 'power3.out', delay: 0.15 }
+              );
+            } catch (e) {
+              menuLinks.forEach(l => { l.style.opacity = '1'; l.style.transform = 'none'; });
+            }
+          });
+        };
+
+        const closeMenu = () => {
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          try {
+            gsap.to(menuLinks, {
+              y: -28, opacity: 0, stagger: 0.04, duration: 0.28, ease: 'power2.in',
+              onComplete: () => {
+                mobileMenu.style.opacity = '0';
+                setTimeout(() => { mobileMenu.style.display = 'none'; }, 320);
+              }
+            });
+          } catch (e) {
+            mobileMenu.style.opacity = '0';
+            mobileMenu.style.display = 'none';
+          }
+          document.body.style.overflow = '';
+        };
+
         mobileMenuBtn.addEventListener('click', openMenu);
         mobileMenuClose.addEventListener('click', closeMenu);
-        mobileMenu.querySelectorAll('.mobile-nav-link').forEach(link => link.addEventListener('click', closeMenu));
+        menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+        // Escape-Taste schließt Mobile Menu
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && mobileMenu.style.display === 'flex') closeMenu();
+        });
       }
 
-      // ===== NAV SCROLL BEHAVIOR =====
+      // ===== NAV SCROLL BEHAVIOR (rAF + passive für Performance) =====
       const nav = document.getElementById('main-nav');
-      window.addEventListener('scroll', () => {
-        const navLinks = nav.querySelectorAll('.nav-link');
-        if (window.scrollY > 80) {
-          nav.classList.add('nav-scrolled');
-          nav.classList.remove('bg-white/5', 'backdrop-blur-md');
-          navLinks.forEach(link => { link.classList.remove('text-[#F7EDC2]'); link.classList.add('text-[#203D36]'); });
-          const menuBtn = document.getElementById('mobile-menu-btn');
-          if (menuBtn) menuBtn.style.color = 'var(--color-dunkelgruen)';
-        } else {
-          nav.classList.remove('nav-scrolled');
-          nav.classList.add('bg-white/5', 'backdrop-blur-md');
-          navLinks.forEach(link => { link.classList.add('text-[#F7EDC2]'); link.classList.remove('text-[#203D36]'); });
-          const menuBtn = document.getElementById('mobile-menu-btn');
-          if (menuBtn) menuBtn.style.color = '#fff';
-        }
-        // Hero parallax
-        const bg = document.querySelector('.parallax-bg');
-        if (bg) bg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
-      });
+      const navLinks = nav.querySelectorAll('.nav-link');
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const parallaxBg = document.querySelector('.parallax-bg');
+      let rafPending = false;
+
+      const handleScroll = () => {
+        if (rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(() => {
+          rafPending = false;
+          if (window.scrollY > 80) {
+            nav.classList.add('nav-scrolled');
+            nav.classList.remove('bg-white/5', 'backdrop-blur-md');
+            navLinks.forEach(link => { link.classList.remove('text-[#F7EDC2]'); link.classList.add('text-[#203D36]'); });
+            if (menuBtn) menuBtn.style.color = 'var(--color-dunkelgruen)';
+          } else {
+            nav.classList.remove('nav-scrolled');
+            nav.classList.add('bg-white/5', 'backdrop-blur-md');
+            navLinks.forEach(link => { link.classList.add('text-[#F7EDC2]'); link.classList.remove('text-[#203D36]'); });
+            if (menuBtn) menuBtn.style.color = '';
+          }
+          // Hero parallax
+          if (parallaxBg) parallaxBg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
+        });
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
 
       // ===== SECTION 01: DAS HANDWERK =====
       gsap.set('.char', { opacity: 0 });
@@ -1439,61 +2288,177 @@
         scrollTrigger: { trigger: '#main-header', start: 'top 80%', toggleActions: 'play none none none' }
       });
 
-      // Quote section: background color change (creme → dunkelgrün)
-      gsap.to('#quote-section', {
-        backgroundColor: '#203D36',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#quote-section',
-          start: 'top 95%',
-          end: 'center center',
-          scrub: true
-        }
+      // ── QUOTE: TATTOO NEEDLE REVEAL ─────────────────────────────────
+      // Each line is "tattooed" onto the dark skin left-to-right,
+      // guided by a glowing orange needle dot.
+      const quoteSection = document.getElementById('quote-section');
+      const quoteRevealLines = quoteSection.querySelectorAll('.quote-reveal');
+      const needle = document.getElementById('quote-needle');
+
+      // Hide all lines initially via clip-path (revealed left→right during animation)
+      gsap.set('.quote-reveal', { clipPath: 'inset(0 100% 0 0)' });
+      // Underline hidden until line 3 finishes
+      gsap.set('.underline-path', { strokeDashoffset: 500 });
+      // Center the needle on its coordinate point
+      gsap.set(needle, { xPercent: -50, yPercent: -50 });
+
+      // Capture line positions relative to the section BEFORE pin is applied
+      const sectionRect = quoteSection.getBoundingClientRect();
+      const linePositions = Array.from(quoteRevealLines).map(el => {
+        const r = el.getBoundingClientRect();
+        return {
+          startX: r.left - sectionRect.left,
+          endX:   r.right - sectionRect.left,
+          centerY: r.top - sectionRect.top + r.height * 0.5
+        };
       });
 
-      // Quote text color change (dunkelgrün → creme)
-      gsap.to('#quote-text', {
-        color: '#F7EDC2',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#quote-section',
-          start: 'top 95%',
-          end: 'center center',
-          scrub: true
-        }
-      });
+      const SEG = 0.15;  // scroll fraction to write one line
+      const GAP = 0.04;  // carriage-return pause between lines
+      const totalLineTime = quoteRevealLines.length * (SEG + GAP);
 
-      // Word-by-word reveal
-      gsap.set('.quote-word', { opacity: 0.2 });
-      gsap.to('.quote-word', {
-        opacity: 1,
-        stagger: 0.2,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#quote-section',
-          start: 'center center',
-          end: '+=120%',
-          pin: true,
-          scrub: true
-        }
-      });
+      // ── Quote animation: desktop = scroll-scrub, mobile = time-based on enter ──
+      if (isMobile) {
+        // Mobile: full visual effect (clip-path, needle, underline, rings) but
+        // time-based so iOS scroll never freezes. Plays once when section enters.
+        const MOB_SEG = 0.5;   // seconds per line
+        const MOB_GAP = 0.12;  // carriage-return pause
 
-      // Underline draw — starts when "verblasst" becomes visible (~40% through word reveal)
-      gsap.to('.underline-path', {
-        strokeDashoffset: 0,
-        ease: 'power2.inOut',
-        scrollTrigger: {
+        const mobTl = gsap.timeline({ paused: true });
+        mobTl.to(needle, { opacity: 1, duration: 0.1 }, 0);
+
+        quoteRevealLines.forEach((line, i) => {
+          const t   = i * (MOB_SEG + MOB_GAP);
+          const pos = linePositions[i];
+
+          mobTl.to(line, {
+            clipPath: 'inset(0 0% 0 0)',
+            duration: MOB_SEG,
+            ease: 'power1.inOut'
+          }, t);
+
+          mobTl.fromTo(needle,
+            { x: pos.startX, y: pos.centerY },
+            { x: pos.endX,   y: pos.centerY, ease: 'none', duration: MOB_SEG },
+            t
+          );
+
+          if (i < quoteRevealLines.length - 1) {
+            const next = linePositions[i + 1];
+            mobTl.fromTo(needle,
+              { x: pos.endX,    y: pos.centerY },
+              { x: next.startX, y: next.centerY, ease: 'power1.inOut', duration: MOB_GAP },
+              t + MOB_SEG
+            );
+          }
+        });
+
+        const mobTotal = quoteRevealLines.length * (MOB_SEG + MOB_GAP);
+
+        mobTl.to(needle, { opacity: 0, duration: 0.15 }, mobTotal);
+
+        const mobUnderlineStart = 2 * (MOB_SEG + MOB_GAP) + MOB_SEG;
+        mobTl.fromTo('.underline-path',
+          { strokeDashoffset: 500 },
+          { strokeDashoffset: 0, ease: 'power2.inOut', duration: 0.4 },
+          mobUnderlineStart
+        );
+
+        mobTl.fromTo('#quote-ring',
+          { opacity: 0, scale: 0.88 },
+          { opacity: 1,  scale: 1,   ease: 'power2.out', duration: 0.5 },
+          mobTotal + 0.1
+        );
+        mobTl.fromTo('#quote-ring-svg',
+          { rotation: -14, transformOrigin: '50% 50%' },
+          { rotation: 0,   ease: 'power2.out', duration: 0.5 },
+          mobTotal + 0.1
+        );
+        mobTl.to('#quote-tinte', { scale: 1.09, ease: 'power2.out', duration: 0.15 }, mobTotal - 0.05);
+        mobTl.to('#quote-tinte', { scale: 1.02, ease: 'power2.out', duration: 0.2  }, mobTotal + 0.1 );
+
+        ScrollTrigger.create({
           trigger: '#quote-section',
-          start: 'center -=10%',
-          end: '+=50%',
-          scrub: true
-        }
-      });
+          start: 'top 65%',
+          onEnter: () => mobTl.play(),
+          once: true
+        });
+
+      } else {
+        // Desktop: scroll-scrub with pin (full cinematic reveal)
+        const quoteTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#quote-section',
+            start: 'center center',
+            end: '+=200%',
+            pin: true,
+            scrub: true,
+            invalidateOnRefresh: true
+          }
+        });
+
+        quoteTl.to(needle, { opacity: 1, duration: 0.02 }, 0);
+
+        quoteRevealLines.forEach((line, i) => {
+          const t   = i * (SEG + GAP);
+          const pos = linePositions[i];
+
+          quoteTl.to(line, {
+            clipPath: 'inset(0 0% 0 0)',
+            duration: SEG,
+            ease: 'none'
+          }, t);
+
+          quoteTl.fromTo(needle,
+            { x: pos.startX, y: pos.centerY },
+            { x: pos.endX,   y: pos.centerY, ease: 'none', duration: SEG },
+            t
+          );
+
+          if (i < quoteRevealLines.length - 1) {
+            const next = linePositions[i + 1];
+            quoteTl.fromTo(needle,
+              { x: pos.endX,    y: pos.centerY },
+              { x: next.startX, y: next.centerY, ease: 'power1.inOut', duration: GAP },
+              t + SEG
+            );
+          }
+        });
+
+        quoteTl.to(needle, { opacity: 0, duration: 0.03 }, totalLineTime);
+
+        const underlineStart = 2 * (SEG + GAP) + SEG;
+        quoteTl.fromTo('.underline-path',
+          { strokeDashoffset: 500 },
+          { strokeDashoffset: 0, ease: 'power2.inOut', duration: 0.08 },
+          underlineStart
+        );
+
+        quoteTl.fromTo('#quote-ring',
+          { opacity: 0, scale: 0.88 },
+          { opacity: 1,  scale: 1,   ease: 'none', duration: 0.18 },
+          totalLineTime + 0.03
+        );
+        quoteTl.fromTo('#quote-ring-svg',
+          { rotation: -14, transformOrigin: '50% 50%' },
+          { rotation: 0,   ease: 'none', duration: 0.18 },
+          totalLineTime + 0.03
+        );
+
+        quoteTl.to('#quote-tinte', { scale: 1.09, ease: 'none', duration: 0.04 }, totalLineTime - 0.05);
+        quoteTl.to('#quote-tinte', { scale: 1.02, ease: 'none', duration: 0.04 }, totalLineTime - 0.01);
+      }
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.set('.quote-reveal', { clipPath: 'inset(0 0% 0 0)' });
+        gsap.set('.underline-path', { strokeDashoffset: 0 });
+        gsap.set(needle, { opacity: 0 });
+      }
 
       gsap.to('.portrait-img', {
-        yPercent: -15,
+        yPercent: isMobile ? -6 : -15,
         ease: 'none',
-        scrollTrigger: { trigger: '.portrait-container', start: 'top bottom', end: 'bottom top', scrub: true }
+        scrollTrigger: { trigger: '.portrait-container', start: 'top bottom', end: 'bottom top', scrub: isMobile ? 2 : true }
       });
 
       gsap.to('#section-num-alt', {
@@ -1502,138 +2467,272 @@
         scrollTrigger: { trigger: '#main-header', start: 'top bottom', end: 'bottom top', scrub: 1 }
       });
 
-      gsap.from('.philosophy-card', {
-        y: 60, opacity: 0, stagger: 0.2, duration: 1.2, ease: 'power3.out', immediateRender: false,
-        scrollTrigger: { trigger: '#philosophy-grid', start: 'top 85%', toggleActions: 'play none none none' }
+      gsap.from('.philosophy-item', {
+        y: 40, opacity: 0, stagger: 0.18, duration: 1.0, ease: 'power3.out',
+        scrollTrigger: { trigger: '#philosophy-grid', start: 'top 80%', toggleActions: 'play none none none' }
       });
 
-      gsap.from('#signature-alt text', {
-        opacity: 0, y: 20, duration: 1.5, immediateRender: false,
-        scrollTrigger: { trigger: '#signature-alt', start: 'top 95%' }
+      gsap.from('.prozess-item', {
+        y: 40, opacity: 0, stagger: 0.18, duration: 1.0, ease: 'power3.out',
+        scrollTrigger: { trigger: '#prozess-grid', start: 'top 80%', toggleActions: 'play none none none' }
       });
 
-      // ===== SECTION 02: DIE WERKE =====
+      // ===== SIGNATURE ANIMATION =====
+      (function() {
+        const sq1 = document.getElementById('sig-squiggle');
+        const sq2 = document.getElementById('sig-squiggle-2');
+        if (sq1) gsap.set(sq1, { strokeDasharray: sq1.getTotalLength(), strokeDashoffset: sq1.getTotalLength() });
+        if (sq2) gsap.set(sq2, { strokeDasharray: sq2.getTotalLength(), strokeDashoffset: sq2.getTotalLength() });
+        gsap.set('#sig-text', { opacity: 0, y: 18 });
+
+        // Label + divider + text: play once when section enters
+        const introTl = gsap.timeline({
+          scrollTrigger: { trigger: '#sig-block', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+        introTl
+          .to('#sig-label',   { opacity: 0.45, duration: 0.5, ease: 'power3.out' })
+          .to('#sig-divider', { scaleX: 1, duration: 0.7, ease: 'power3.inOut' }, '-=0.15')
+          .to('#sig-text',    { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.35');
+
+        // Squiggles: draw-in tied directly to scroll position
+        if (sq1) gsap.to(sq1, {
+          strokeDashoffset: 0, ease: 'none',
+          scrollTrigger: { trigger: '#sig-block', start: 'top 75%', end: 'bottom 20%', scrub: 1.5 }
+        });
+        if (sq2) gsap.to(sq2, {
+          strokeDashoffset: 0, ease: 'none',
+          scrollTrigger: { trigger: '#sig-block', start: 'top 68%', end: 'bottom 15%', scrub: 2.2 }
+        });
+      })();
+
+      // ===== SECTION 03: DIE WERKE =====
       gsap.from('#sec-num', {
-        x: -80, opacity: 0, duration: 1.5, ease: 'power3.out', immediateRender: false,
+        x: -80, opacity: 0, duration: 1.5, ease: 'power3.out',
         scrollTrigger: { trigger: '#sec-num', start: 'top 85%' }
       });
 
       gsap.from('#werke-hero-title span', {
-        y: 100, opacity: 0, stagger: 0.15, duration: 1.2, ease: 'power3.out', immediateRender: false,
+        y: 100, opacity: 0, stagger: 0.15, duration: 1.2, ease: 'power3.out',
         scrollTrigger: { trigger: '#werke-hero-title', start: 'top 85%' }
       });
 
       ['#row1', '#row2', '#row3', '#row4'].forEach((sel, i) => {
         gsap.from(sel, {
           x: i % 2 === 0 ? -40 : 40,
-          opacity: 0, duration: 1.4, ease: 'power3.out', immediateRender: false,
+          opacity: 0, duration: 1.4, ease: 'power3.out',
           scrollTrigger: { trigger: sel, start: 'top 88%' }
         });
       });
 
       gsap.from('#featured-section .featured-piece', {
-        x: -60, opacity: 0, duration: 1.5, ease: 'power3.out', immediateRender: false,
+        x: -60, opacity: 0, duration: 1.5, ease: 'power3.out',
         scrollTrigger: { trigger: '#featured-section', start: 'top 75%' }
       });
       gsap.from('#featured-text', {
-        x: 60, opacity: 0, duration: 1.5, delay: 0.2, ease: 'power3.out', immediateRender: false,
+        x: 60, opacity: 0, duration: 1.5, delay: 0.2, ease: 'power3.out',
         scrollTrigger: { trigger: '#featured-section', start: 'top 75%' }
       });
 
       gsap.from('#inline-quote blockquote', {
-        y: 40, opacity: 0, duration: 1.2, ease: 'power3.out', immediateRender: false,
+        y: 40, opacity: 0, duration: 1.2, ease: 'power3.out',
         scrollTrigger: { trigger: '#inline-quote', start: 'top 80%' }
       });
 
       gsap.utils.toArray('.showcase-item').forEach(item => {
         gsap.from(item, {
-          scale: 0.92, opacity: 0, duration: 1, ease: 'power2.out', immediateRender: false,
+          scale: 0.92, opacity: 0, duration: 1, ease: 'power2.out',
           scrollTrigger: { trigger: item, start: 'top 92%' }
         });
       });
 
-      // ===== SECTION 03: DAS ATELIER =====
-      gsap.to('#atelier-forest-bg', {
-        yPercent: -15,
-        scale: 1.1,
-        ease: 'none',
-        scrollTrigger: { trigger: '#atelier', start: 'top bottom', end: 'bottom top', scrub: 1 }
-      });
+      // ===== SECTION 02: DAS ATELIER =====
+      if (!isMobile) {
+        gsap.to('#atelier-forest-bg', {
+          yPercent: -15,
+          scale: 1.1,
+          ease: 'none',
+          scrollTrigger: { trigger: '#atelier', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+      }
 
       gsap.from('#atelier-num', {
-        x: -100, opacity: 0, duration: 1.5, ease: 'power3.out', immediateRender: false,
+        x: -100, opacity: 0, duration: 1.5, ease: 'power3.out',
         scrollTrigger: { trigger: '#atelier-num', start: 'top 85%' }
       });
 
       gsap.from('#atelier-title', {
-        y: 50, opacity: 0, duration: 1.2, ease: 'power3.out', immediateRender: false,
+        y: 50, opacity: 0, duration: 1.2, ease: 'power3.out',
         scrollTrigger: { trigger: '#atelier-title', start: 'top 85%' }
       });
 
       gsap.from('#atelier-card', {
-        y: 60, opacity: 0, scale: 0.95, duration: 1.4, ease: 'power3.out', immediateRender: false,
+        y: 60, opacity: 0, scale: 0.95, duration: 1.4, ease: 'power3.out',
         scrollTrigger: { trigger: '#atelier-card', start: 'top 85%' }
       });
 
       gsap.from('#atelier-image-wrap', {
-        x: 80, opacity: 0, rotation: 6, duration: 1.5, ease: 'power3.out', immediateRender: false,
+        x: 80, opacity: 0, rotation: 6, duration: 1.5, ease: 'power3.out',
         scrollTrigger: { trigger: '#atelier-image-wrap', start: 'top 85%' }
       });
 
       gsap.from('.atelier-body-p', {
-        y: 30, opacity: 0, stagger: 0.2, duration: 1, ease: 'power2.out', immediateRender: false,
+        y: 30, opacity: 0, stagger: 0.2, duration: 1, ease: 'power2.out',
         scrollTrigger: { trigger: '#atelier-paragraphs', start: 'top 85%' }
       });
 
       // ===== SECTION 04: KONTAKT =====
-      gsap.to('#kontaktHeroImage', {
-        yPercent: -8,
-        ease: 'none',
-        scrollTrigger: { trigger: '#kontaktImageSection', start: 'top top', end: 'bottom top', scrub: 1 }
-      });
+      // Parallax + entrance animations desktop-only:
+      // On mobile, scrub can freeze iOS scroll and opacity:0 initial states
+      // can stay invisible when navigating via anchor link (ScrollTrigger start missed).
+      if (!isMobile) {
+        gsap.to('#kontaktHeroImage', {
+          yPercent: -8,
+          ease: 'none',
+          scrollTrigger: { trigger: '#kontaktImageSection', start: 'top top', end: 'bottom top', scrub: 1 }
+        });
 
-      gsap.from('#infoCol > *', {
-        opacity: 0, y: 30, duration: 0.8, stagger: 0.12, ease: 'power3.out', immediateRender: false,
-        scrollTrigger: { trigger: '#formInner', start: 'top 80%', toggleActions: 'play none none none' }
-      });
+        gsap.from('#infoCol > *', {
+          opacity: 0, y: 30, duration: 0.8, stagger: 0.12, ease: 'power3.out',
+          scrollTrigger: { trigger: '#formInner', start: 'top 80%', toggleActions: 'play none none none' }
+        });
 
-      gsap.from('#formCol .form-group, #formCol .submit-button', {
-        opacity: 0, y: 25, duration: 0.7, stagger: 0.1, ease: 'power2.out', immediateRender: false,
-        scrollTrigger: { trigger: '#formCol', start: 'top 85%', toggleActions: 'play none none none' }
-      });
+        gsap.from('#formCol .form-group, #formCol .submit-button', {
+          opacity: 0, y: 25, duration: 0.7, stagger: 0.1, ease: 'power2.out',
+          scrollTrigger: { trigger: '#formCol', start: 'top 85%', toggleActions: 'play none none none' }
+        });
+      }
 
       // ===== FOOTER =====
       gsap.from('.footer-main > *', {
-        y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out', immediateRender: false,
+        y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out',
         scrollTrigger: { trigger: '#footer', start: 'top 80%', toggleActions: 'play none none none' }
       });
 
       gsap.from('.footer-bottom', {
-        y: 20, opacity: 0, duration: 0.6, delay: 0.4, ease: 'power2.out', immediateRender: false,
+        y: 20, opacity: 0, duration: 0.6, delay: 0.4, ease: 'power2.out',
         scrollTrigger: { trigger: '#footer', start: 'top 80%', toggleActions: 'play none none none' }
       });
 
       // ===== LIGHTBOX =====
       const lightbox = document.getElementById('lightbox');
       const lbImg = document.getElementById('lb-img');
+      const closeLb = document.getElementById('close-lb');
+
+      const openLightbox = (src, altText) => {
+        lbImg.src = src;
+        lbImg.alt = altText || '';
+        lightbox.style.display = 'flex';
+        requestAnimationFrame(() => lightbox.style.opacity = '1');
+        closeLb.focus();
+      };
+
+      const closeLightbox = () => {
+        lightbox.style.opacity = '0';
+        setTimeout(() => { lightbox.style.display = 'none'; lbImg.src = ''; }, 400);
+      };
+
       document.querySelectorAll('[data-img]').forEach(el => {
         el.addEventListener('click', () => {
-          lbImg.src = el.querySelector('img').src;
-          lightbox.style.display = 'flex';
-          requestAnimationFrame(() => lightbox.style.opacity = '1');
+          const img = el.querySelector('img');
+          openLightbox(img.src, img.alt);
         });
       });
-      document.getElementById('close-lb').addEventListener('click', () => {
-        lightbox.style.opacity = '0';
-        setTimeout(() => lightbox.style.display = 'none', 400);
-      });
-      lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) document.getElementById('close-lb').click();
+
+      closeLb.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+      // Escape-Taste schließt Lightbox
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.style.display === 'flex') closeLightbox();
       });
 
-      // ===== FORM =====
-      document.getElementById('contactForm').addEventListener('submit', (e) => { e.preventDefault(); });
+      // ===== MOBILE: KILL ALL SCROLL ANIMATIONS =====
+      // iOS Safari freezes scroll at GSAP pin spacers and scrub points.
+      // gsap.from(opacity:0) applies hidden state immediately — if the
+      // ScrollTrigger start is missed (anchor nav, refresh at scroll pos),
+      // content stays invisible but takes layout space → bounce/freeze.
+      // Fix: kill every ScrollTrigger, reset all hidden elements to visible.
+      if (isMobile) {
+        ScrollTrigger.getAll().forEach(st => st.kill());
+        gsap.set([
+          '.char', '.philosophy-item', '.prozess-item',
+          '#atelier-num', '#atelier-title', '#atelier-card',
+          '#atelier-image-wrap', '.atelier-body-p',
+          '#sec-num', '#werke-hero-title span',
+          '#row1', '#row2', '#row3', '#row4',
+          '#featured-section .featured-piece', '#featured-text',
+          '#inline-quote blockquote', '.showcase-item',
+          '.footer-main > *', '.footer-bottom',
+          '#sig-text', '#sig-label', '#sig-divider'
+        ], { clearProps: 'all' });
+        gsap.set('.quote-reveal', { clipPath: 'inset(0 0% 0 0)' });
+        gsap.set('.underline-path', { strokeDashoffset: 0 });
+        gsap.set(needle, { opacity: 0 });
+        const _sq1 = document.getElementById('sig-squiggle');
+        const _sq2 = document.getElementById('sig-squiggle-2');
+        if (_sq1) gsap.set(_sq1, { strokeDashoffset: 0 });
+        if (_sq2) gsap.set(_sq2, { strokeDashoffset: 0 });
+      }
+
     });
+
+    // Refresh ScrollTrigger after all assets loaded (fixes first-scroll bounce on iOS:
+    // pin spacers are calculated correctly only once fonts/images are fully loaded)
+    window.addEventListener('load', () => {
+      ScrollTrigger.refresh();
+    });
+
+    // Buchungshinweise accordion
+    (function() {
+      const toggle = document.getElementById('hinweise-toggle');
+      const content = document.getElementById('hinweise-content');
+      if (toggle && content) {
+        toggle.addEventListener('click', function() {
+          const isOpen = this.classList.contains('open');
+          this.classList.toggle('open');
+          content.classList.toggle('open');
+          this.setAttribute('aria-expanded', String(!isOpen));
+        });
+      }
+
+      // Submit-Button enable/disable
+      const form = document.getElementById('tattoo-anfrage-form');
+      const submitBtn = document.getElementById('form-submit');
+      const check18 = document.getElementById('check-18');
+      const checkAgb = document.getElementById('check-agb');
+      if (form && submitBtn) {
+        const requiredInputs = form.querySelectorAll('input[required]:not([type="checkbox"]), textarea[required], select[required]');
+        function checkFormValidity() {
+          let filled = true;
+          requiredInputs.forEach(function(el) {
+            if (el.tagName === 'SELECT') { if (!el.value) filled = false; }
+            else { if (!el.value.trim()) filled = false; }
+          });
+          const checksOk = check18 && check18.checked && checkAgb && checkAgb.checked;
+          submitBtn.disabled = !(filled && checksOk);
+        }
+        form.addEventListener('input', checkFormValidity);
+        form.addEventListener('change', checkFormValidity);
+        // File input: display selected filename
+        const fileInput = document.getElementById('referenz');
+        const fileNameDisplay = document.getElementById('referenz-name');
+        if (fileInput && fileNameDisplay) {
+          fileInput.addEventListener('change', function() {
+            fileNameDisplay.textContent = this.files && this.files[0] ? '✓ ' + this.files[0].name : '';
+          });
+        }
+
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const msg = document.getElementById('form-success');
+          if (msg) {
+            msg.style.display = 'block';
+            gsap.from(msg, { opacity: 0, scale: 0.97, duration: 0.4, ease: 'power2.out' });
+          }
+          submitBtn.disabled = true;
+        });
+      }
+    })();
   </script>
 </body>
 </html>

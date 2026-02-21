@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impressum – Gunst & Tinte</title>
+  <meta name="description" content="Impressum – Gunst & Tinte Tattoo Atelier Fulda">
+  <style>
+    @font-face {
+      font-family: 'Casta';
+      src: url('/fonts/casta/Casta-Full-Variable-Font-FV.ttf') format('truetype');
+      font-weight: 100 900;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Space Mono';
+      src: url('/fonts/space-mono/SpaceMono-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Space Mono';
+      src: url('/fonts/space-mono/SpaceMono-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-display: block;
+    }
+
+    :root {
+      --color-creme: #F7EDC2;
+      --color-limette: #E0E793;
+      --color-orange: #EB5729;
+      --color-burgund: #4F1B37;
+      --color-dunkelgruen: #203D36;
+      --font-casta: 'Casta', serif;
+      --font-space-mono: 'Space Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    a { color: inherit; text-decoration: none; }
+
+    html { scroll-behavior: smooth; overflow-x: clip; }
+
+    body {
+      font-family: var(--font-space-mono);
+      color: var(--color-creme);
+      background-color: var(--color-dunkelgruen);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== NOISE OVERLAY ===== */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    /* ===== NAVIGATION ===== */
+    #main-nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 60;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    #main-nav.nav-scrolled {
+      background-color: var(--color-creme) !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      backdrop-filter: none !important;
+    }
+    .nav-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+      height: 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img { height: 3rem; width: auto; }
+    @media (min-width: 768px) { .nav-logo img { height: 4rem; } }
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 3rem;
+    }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+    .nav-link {
+      font-family: var(--font-space-mono);
+      font-weight: 500;
+      letter-spacing: 0.025em;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      color: var(--color-creme);
+      transition: color 0.15s;
+    }
+    .nav-link:hover { color: var(--color-orange); }
+    .nav-scrolled .nav-link { color: var(--color-dunkelgruen); }
+    .nav-cta {
+      font-family: var(--font-space-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-orange);
+      border: 2px solid var(--color-orange);
+      padding: 0.5rem 1.5rem;
+      transition: all 0.15s;
+    }
+    .nav-cta:hover {
+      background: var(--color-orange);
+      color: var(--color-creme);
+    }
+    .mobile-menu-btn {
+      display: flex;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-creme);
+      padding: 6px;
+    }
+    @media (min-width: 768px) { .mobile-menu-btn { display: none; } }
+    .nav-scrolled .mobile-menu-btn { color: var(--color-dunkelgruen); }
+
+    /* ===== MOBILE MENU OVERLAY ===== */
+    #mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 55;
+      background: var(--color-burgund);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .mobile-menu-logo {
+      position: absolute;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 3rem;
+      width: auto;
+      opacity: 0.35;
+    }
+    .mobile-menu-close-btn {
+      position: absolute;
+      top: 1.25rem; right: 1.25rem;
+      background: none; border: none; cursor: pointer;
+      color: var(--color-creme);
+      padding: 10px;
+      min-width: 44px; min-height: 44px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mobile-menu-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 0;
+    }
+    .mobile-menu-item {
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid rgba(247, 237, 194, 0.06);
+      padding: 1.1rem 0;
+    }
+    .mobile-menu-item:first-child { border-top: 1px solid rgba(247, 237, 194, 0.06); }
+    .mobile-nav-link-text {
+      font-family: var(--font-casta);
+      font-size: clamp(1.75rem, 8vw, 2.5rem);
+      font-weight: 700;
+      color: var(--color-creme);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      display: inline-block;
+    }
+    .mobile-menu-cta-wrap {
+      margin-top: 2rem;
+      padding: 0 2.5rem;
+    }
+    .mobile-cta-link {
+      display: inline-block;
+      font-family: var(--font-space-mono);
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--color-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      padding: 1rem 3rem;
+      border: 2px solid var(--color-orange);
+    }
+    .mobile-menu-cities {
+      position: absolute;
+      bottom: 2rem;
+      font-family: var(--font-space-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-creme);
+      opacity: 0.3;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .page-main {
+      flex: 1;
+      padding-top: 8rem;
+      padding-bottom: 6rem;
+    }
+    .content-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .page-eyebrow {
+      font-family: var(--font-space-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-orange);
+      opacity: 0.85;
+      margin-bottom: 1.25rem;
+    }
+    .page-heading {
+      font-family: var(--font-casta);
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 700;
+      color: var(--color-creme);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+    .page-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--color-orange);
+      margin-bottom: 3.5rem;
+    }
+    .placeholder-note {
+      font-family: var(--font-space-mono);
+      font-size: 0.8rem;
+      color: var(--color-orange);
+      background: rgba(235, 87, 41, 0.12);
+      border: 1px solid rgba(235, 87, 41, 0.3);
+      padding: 1rem 1.25rem;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    /* ===== LEGAL SECTIONS ===== */
+    .legal-section {
+      margin-bottom: 3rem;
+    }
+    .legal-section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .legal-section-number {
+      font-family: var(--font-space-mono);
+      font-size: 0.7rem;
+      color: var(--color-orange);
+      opacity: 0.7;
+      letter-spacing: 0.15em;
+      flex-shrink: 0;
+    }
+    .legal-section-title {
+      font-family: var(--font-casta);
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 600;
+      color: var(--color-creme);
+      letter-spacing: 0.02em;
+    }
+    .legal-section-body {
+      font-family: var(--font-space-mono);
+      font-size: 0.875rem;
+      line-height: 1.85;
+      color: var(--color-creme);
+      opacity: 0.82;
+      padding-left: 0;
+    }
+    .legal-section-body p { margin-bottom: 0.75rem; }
+    .legal-section-body p:last-child { margin-bottom: 0; }
+    .legal-placeholder {
+      color: rgba(247, 237, 194, 0.45);
+      font-style: italic;
+    }
+    .legal-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0.5rem 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .legal-label {
+      font-weight: 700;
+      color: var(--color-creme);
+      opacity: 0.65;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+    .legal-value {
+      color: var(--color-creme);
+      opacity: 0.82;
+    }
+    @media (max-width: 480px) {
+      .legal-row { grid-template-columns: 1fr; gap: 0.15rem; margin-bottom: 1rem; }
+      .legal-label { opacity: 0.55; font-size: 0.72rem; }
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--color-burgund);
+      border-top: 2px solid var(--color-orange);
+      color: var(--color-creme);
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 3rem;
+      padding: 3rem 2rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .footer-logo-section { display: flex; flex-direction: column; gap: 0.75rem; }
+    .footer-logo { height: 80px; width: auto; }
+    .footer-nav { display: flex; gap: 2rem; justify-content: center; }
+    .footer-nav a {
+      font-family: var(--font-space-mono);
+      font-size: 0.875rem;
+      color: var(--color-creme);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .footer-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--color-orange);
+      transition: width 0.3s ease;
+    }
+    .footer-nav a:hover { color: var(--color-orange); }
+    .footer-nav a:hover::after { width: 100%; }
+    .footer-social { display: flex; gap: 1.5rem; justify-content: flex-end; }
+    .footer-social a {
+      color: var(--color-creme);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      padding: 10px; margin: -10px;
+    }
+    .footer-social a:hover { color: var(--color-orange); transform: scale(1.1); }
+    .footer-bottom {
+      border-top: 1px solid rgba(247, 237, 194, 0.2);
+      padding: 1.5rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copyright, .footer-locations {
+      font-family: var(--font-space-mono);
+      font-size: 0.75rem;
+      color: var(--color-creme);
+      opacity: 0.7;
+    }
+    @media (max-width: 1024px) {
+      .footer-main { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+      .footer-logo-section { align-items: center; }
+      .footer-logo { height: 60px; }
+      .footer-social { justify-content: center; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; }
+    }
+    @media (max-width: 640px) {
+      .footer-nav { flex-direction: column; gap: 1rem; }
+      .footer-main { padding: 2rem 1.5rem 1.5rem; }
+      .footer-bottom { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav id="main-nav" aria-label="Hauptnavigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Gunst & Tinte – Startseite">
+        <img src="/logos/logo-short.svg" alt="G&T Logo">
+      </a>
+      <div class="nav-links">
+        <a href="/#handwerk" class="nav-link">Das Handwerk</a>
+        <a href="/#atelier" class="nav-link">Das Atelier</a>
+        <a href="/#werke" class="nav-link">Die Werke</a>
+        <a href="/#kontakt" class="nav-cta">Anfrage</a>
+      </div>
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE MENU ===== -->
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
+    <img src="/logos/logo-kontakt.svg" alt="Gunst & Tinte" class="mobile-menu-logo">
+    <button id="mobile-menu-close" class="mobile-menu-close-btn" aria-label="Menü schließen">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <nav class="mobile-menu-nav">
+      <div class="mobile-menu-item">
+        <a href="/#handwerk" class="mobile-nav-link"><span class="mobile-nav-link-text">Das Handwerk</span></a>
+      </div>
+      <div class="mobile-menu-item">
+        <a href="/#atelier" class="mobile-nav-link"><span class="mobile-nav-link-text">Das Atelier</span></a>
+      </div>
+      <div class="mobile-menu-item">
+        <a href="/#werke" class="mobile-nav-link"><span class="mobile-nav-link-text">Die Werke</span></a>
+      </div>
+    </nav>
+    <div class="mobile-menu-cta-wrap">
+      <a href="/#kontakt" class="mobile-nav-link mobile-cta-link">Anfrage stellen</a>
+    </div>
+    <p class="mobile-menu-cities">Fulda</p>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="page-main" id="main-content">
+    <div class="content-wrap">
+
+      <p class="page-eyebrow">Rechtliches</p>
+      <h1 class="page-heading">Impressum</h1>
+      <div class="page-divider" aria-hidden="true"></div>
+
+      <div class="placeholder-note" role="note">
+        Hinweis: Die nachfolgenden Angaben sind Platzhalter. Inhalt wird durch die Kundin ergänzt.
+      </div>
+
+      <div class="legal-section">
+        <div class="legal-section-header">
+          <span class="legal-section-number" aria-hidden="true">01</span>
+          <h2 class="legal-section-title">Angaben gemäß § 5 TMG</h2>
+        </div>
+        <div class="legal-section-body">
+          <div class="legal-row">
+            <span class="legal-label">Name:</span>
+            <span class="legal-value legal-placeholder">[Vollständiger Name]</span>
+          </div>
+          <div class="legal-row">
+            <span class="legal-label">Straße / Nr.:</span>
+            <span class="legal-value legal-placeholder">[Straße und Hausnummer]</span>
+          </div>
+          <div class="legal-row">
+            <span class="legal-label">PLZ / Ort:</span>
+            <span class="legal-value legal-placeholder">[PLZ] Fulda</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <div class="legal-section-header">
+          <span class="legal-section-number" aria-hidden="true">02</span>
+          <h2 class="legal-section-title">Kontakt</h2>
+        </div>
+        <div class="legal-section-body">
+          <div class="legal-row">
+            <span class="legal-label">Telefon:</span>
+            <span class="legal-value legal-placeholder">[Telefonnummer]</span>
+          </div>
+          <div class="legal-row">
+            <span class="legal-label">E-Mail:</span>
+            <span class="legal-value legal-placeholder">[E-Mail-Adresse]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <div class="legal-section-header">
+          <span class="legal-section-number" aria-hidden="true">03</span>
+          <h2 class="legal-section-title">Umsatzsteuer-ID</h2>
+        </div>
+        <div class="legal-section-body">
+          <div class="legal-row">
+            <span class="legal-label">USt-IdNr.:</span>
+            <span class="legal-value legal-placeholder">[Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <div class="legal-section-header">
+          <span class="legal-section-number" aria-hidden="true">04</span>
+          <h2 class="legal-section-title">Verantwortlich für den Inhalt</h2>
+        </div>
+        <div class="legal-section-body">
+          <div class="legal-row">
+            <span class="legal-label">Name:</span>
+            <span class="legal-value legal-placeholder">[Name der verantwortlichen Person]</span>
+          </div>
+          <div class="legal-row">
+            <span class="legal-label">Adresse:</span>
+            <span class="legal-value legal-placeholder">[Adresse wie oben]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <div class="legal-section-header">
+          <span class="legal-section-number" aria-hidden="true">05</span>
+          <h2 class="legal-section-title">Haftung für Inhalte</h2>
+        </div>
+        <div class="legal-section-body">
+          <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+          <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <div class="legal-section-header">
+          <span class="legal-section-number" aria-hidden="true">06</span>
+          <h2 class="legal-section-title">Haftung für Links</h2>
+        </div>
+        <div class="legal-section-body">
+          <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <div class="legal-section-header">
+          <span class="legal-section-number" aria-hidden="true">07</span>
+          <h2 class="legal-section-title">Urheberrecht</h2>
+        </div>
+        <div class="legal-section-body">
+          <p>Die durch die Seitenbetreiberin erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung der jeweiligen Autorin bzw. Erstellerin.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="footer-main">
+      <div class="footer-logo-section">
+        <img src="/logos/logo-kontakt.svg" alt="Gunst & Tinte Logo" class="footer-logo">
+      </div>
+      <nav class="footer-nav" aria-label="Footer Navigation">
+        <a href="/impressum">Impressum</a>
+        <a href="/datenschutz">Datenschutz</a>
+        <a href="/agb">AGB</a>
+      </nav>
+      <div class="footer-social">
+        <a href="https://instagram.com/gunstundtinte" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+        </a>
+        <a href="https://tiktok.com/@gunstundtinte" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2026 Gunst & Tinte. Alle Rechte vorbehalten.</p>
+      <p class="footer-locations">Fulda</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ===== NAV SCROLL BEHAVIOR =====
+      const nav = document.getElementById('main-nav');
+      const navLinks = nav.querySelectorAll('.nav-link');
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      let rafPending = false;
+
+      const handleScroll = () => {
+        if (rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(() => {
+          rafPending = false;
+          if (window.scrollY > 80) {
+            nav.classList.add('nav-scrolled');
+            navLinks.forEach(link => { link.style.color = 'var(--color-dunkelgruen)'; });
+            if (menuBtn) menuBtn.style.color = 'var(--color-dunkelgruen)';
+          } else {
+            nav.classList.remove('nav-scrolled');
+            navLinks.forEach(link => { link.style.color = ''; });
+            if (menuBtn) menuBtn.style.color = '';
+          }
+        });
+      };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+
+      // ===== MOBILE MENU =====
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuClose = document.getElementById('mobile-menu-close');
+      if (mobileMenuBtn && mobileMenu) {
+        const menuLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+
+        const openMenu = () => {
+          mobileMenu.style.display = 'flex';
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+          requestAnimationFrame(() => {
+            mobileMenu.style.opacity = '1';
+            gsap.fromTo(menuLinks,
+              { y: 48, opacity: 0 },
+              { y: 0, opacity: 1, stagger: 0.09, duration: 0.55, ease: 'power3.out', delay: 0.15 }
+            );
+          });
+        };
+
+        const closeMenu = () => {
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          gsap.to(menuLinks, {
+            y: -28, opacity: 0, stagger: 0.04, duration: 0.28, ease: 'power2.in',
+            onComplete: () => {
+              mobileMenu.style.opacity = '0';
+              setTimeout(() => { mobileMenu.style.display = 'none'; }, 320);
+            }
+          });
+          document.body.style.overflow = '';
+        };
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        mobileMenuClose.addEventListener('click', closeMenu);
+        menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && mobileMenu.style.display === 'flex') closeMenu();
+        });
+      }
+    });
+  </script>
+</body>
+</html>

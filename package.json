@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "npx --yes serve@14.2.5 -l 3000 public",
+    "build": "node -e \"console.log('Static one-pager: no build step required')\"",
+    "start": "npx --yes serve@14.2.5 -l 3000 public",
     "lint": "eslint"
   },
   "dependencies": {
