@@ -334,6 +334,11 @@
       box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
     }
 
+    #main-nav {
+      background: transparent;
+      border-bottom: none;
+    }
+
     .nav-scrolled {
       background-color: var(--color-creme) !important;
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
@@ -341,7 +346,35 @@
     }
 
     .nav-transition {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Nav links legible over hero image */
+    .nav-link {
+      text-shadow: 0 1px 12px rgba(0,0,0,0.9), 0 2px 24px rgba(0,0,0,0.6);
+    }
+    .nav-scrolled .nav-link {
+      text-shadow: none;
+    }
+
+    /* Mobile menu button: cream over hero, dark after scroll */
+    #mobile-menu-btn {
+      color: var(--color-creme);
+    }
+    .nav-scrolled #mobile-menu-btn {
+      color: var(--color-dunkelgruen);
+    }
+
+    /* Hero top gradient vignette for nav readability */
+    .hero-top-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 220px;
+      background: linear-gradient(to bottom, rgba(20,8,15,0.72) 0%, rgba(20,8,15,0.3) 50%, transparent 100%);
+      z-index: 5;
+      pointer-events: none;
     }
 
     .parallax-bg {
@@ -1323,6 +1356,13 @@
       }
     }
 
+    /* ===== MOBILE: section-number-oversized top fix ===== */
+    @media (max-width: 767px) {
+      .section-number-oversized {
+        top: 0 !important;
+      }
+    }
+
     /* ===== MOBILE MENU INITIAL STATE (GSAP übernimmt Animation) ===== */
     .mobile-nav-link { opacity: 0; }
 
@@ -1362,19 +1402,17 @@
       #featured-section {
         flex-direction: column !important;
         padding: 40px 20px 48px !important;
-        gap: 28px !important;
+        gap: 0 !important;
       }
       #featured-section > div:first-child {
-        max-height: 55vh !important;
+        max-height: none !important;
         flex: none !important;
         width: 100% !important;
+        aspect-ratio: 4/5 !important;
       }
       #featured-text {
-        flex: 1 1 auto !important;
-        width: 100% !important;
+        display: none !important;
       }
-      #featured-section blockquote,
-      #featured-section p { max-width: 100%; }
     }
 
     /* ===== MOBILE: INLINE QUOTE ===== */
@@ -1523,16 +1561,16 @@
   <!-- ============================================================ -->
   <!-- NAVIGATION (fixed, persistent) -->
   <!-- ============================================================ -->
-  <nav id="main-nav" class="fixed top-0 left-0 w-full z-[60] nav-transition backdrop-blur-md bg-white/5 border-b border-white/10">
+  <nav id="main-nav" class="fixed top-0 left-0 w-full z-[60] nav-transition">
     <div class="max-w-[1440px] mx-auto px-10 h-24 flex items-center justify-between">
       <a href="#hero" id="nav-logo-link" class="block">
         <img src="/logos/logo-short.svg" alt="G&T Logo" class="h-12 md:h-16 w-auto">
       </a>
       <div class="hidden md:flex items-center gap-12">
-        <a href="#handwerk" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-[#F7EDC2]">Das Handwerk</a>
-        <a href="#atelier" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-[#F7EDC2]">Das Atelier</a>
-        <a href="#werke" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-[#F7EDC2]">Die Werke</a>
-        <a href="#prozess" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-[#F7EDC2]">Der Prozess</a>
+        <a href="#handwerk" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-white">Das Handwerk</a>
+        <a href="#atelier" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-white">Das Atelier</a>
+        <a href="#werke" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-white">Die Werke</a>
+        <a href="#prozess" class="nav-link font-medium tracking-wide uppercase text-sm hover:text-orange-600 transition-colors text-white">Der Prozess</a>
         <a href="#kontakt" id="nav-kontakt-link" class="px-6 py-2 border-2 border-[#EB5729] text-[#EB5729] font-bold uppercase text-xs tracking-widest hover:bg-[#EB5729] hover:text-[#F7EDC2] transition-all">Anfrage</a>
       </div>
       <button id="mobile-menu-btn" class="md:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
@@ -1582,6 +1620,7 @@
   <!-- ============================================================ -->
   <main id="main-content">
   <section id="hero" class="relative w-full h-screen overflow-hidden bg-[#4F1B37]">
+    <div class="hero-top-vignette" aria-hidden="true"></div>
     <div class="absolute inset-0">
       <picture class="absolute inset-0" style="opacity:0; animation: fade-in 1.2s ease-out forwards;">
         <source media="(max-width: 767px)" srcset="/images/hero/rubens-mobile-v1-botanical.webp">
@@ -2262,13 +2301,11 @@
           rafPending = false;
           if (window.scrollY > 80) {
             nav.classList.add('nav-scrolled');
-            nav.classList.remove('bg-white/5', 'backdrop-blur-md');
-            navLinks.forEach(link => { link.classList.remove('text-[#F7EDC2]'); link.classList.add('text-[#203D36]'); });
+            navLinks.forEach(link => { link.classList.remove('text-white'); link.classList.add('text-[#203D36]'); });
             if (menuBtn) menuBtn.style.color = 'var(--color-dunkelgruen)';
           } else {
             nav.classList.remove('nav-scrolled');
-            nav.classList.add('bg-white/5', 'backdrop-blur-md');
-            navLinks.forEach(link => { link.classList.add('text-[#F7EDC2]'); link.classList.remove('text-[#203D36]'); });
+            navLinks.forEach(link => { link.classList.add('text-white'); link.classList.remove('text-[#203D36]'); });
             if (menuBtn) menuBtn.style.color = '';
           }
           // Hero parallax

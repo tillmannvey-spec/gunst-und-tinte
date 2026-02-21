@@ -386,3 +386,36 @@ Um eine frühere Version wiederherzustellen: `git log` → `git checkout <commit
 - Z. ~2677: KILL-ALL-Block ersetzt durch minimales Cleanup (nur Needle opacity:0 zurücksetzen); alle toggleActions-Animationen laufen jetzt auf Mobile (philosophy, prozess, atelier, werke, footer, sig, kontakt-form)
 
 ---
+
+### [2026-02-21] – Mobile: Featured-Text im Portfolio ausgeblendet
+**Dateien:** public/index.html
+**Was:** Text neben dem Fledermaus-Tattoo auf Mobile ausgeblendet, Bild zeigt korrekt
+**Details:** In der `@media (max-width: 768px)` Regel für `#featured-section`: `#featured-text` auf `display: none` gesetzt; `gap` auf 0 reduziert; `max-height: none` und `aspect-ratio: 4/5` für das Bild-Div erzwungen, damit das Fledermaus-Bild vollständig sichtbar ist (ca. Z. 1360–1378)
+
+---
+
+### [2026-02-21] – Nav: Glassmorphic-Element entfernt, Hero-Vignette hinzugefügt
+**Dateien:** public/index.html
+**Was:** Glassmorphic-Nav durch transparente Nav mit Dunkel-Vignette oben ersetzt; Nav-Text lesbar
+**Details:**
+- Nav HTML: `backdrop-blur-md bg-white/5 border-b border-white/10` Klassen entfernt
+- CSS: `#main-nav { background: transparent; border-bottom: none }` hinzugefügt
+- CSS: `.nav-transition` vereinfacht (nur background-color + box-shadow)
+- CSS: `.nav-link` erhält `text-shadow` für Lesbarkeit über Bild; entfernt bei `nav-scrolled`
+- CSS: `.hero-top-vignette` — Gradient von rgba(20,8,15,0.72) nach transparent (Höhe 220px)
+- CSS: `#mobile-menu-btn` Farbe cream/dunkelgrün via CSS statt nur JS
+- HTML: `<div class="hero-top-vignette">` als erstes Kind der Hero-Section eingefügt
+- JS: Überflüssige `bg-white/5`/`backdrop-blur-md` add/remove Logik aus scroll-handler entfernt
+
+---
+
+### [2026-02-21] – Nav-Text weiß + mobile "01" Clipping-Fix
+**Dateien:** public/index.html
+**Was:** Nav-Links auf Weiß geändert (statt Creme) für besseren Kontrast; "01" wird auf Mobile nicht mehr vom Hero abgeschnitten
+**Details:**
+- CSS `.nav-link`: text-shadow verstärkt auf `0 1px 12px rgba(0,0,0,0.9), 0 2px 24px rgba(0,0,0,0.6)`
+- HTML Nav-Links: `text-[#F7EDC2]` → `text-white` (Creme hatte zu ähnliche Töne wie das Barock-Gemälde)
+- JS Scroll-Handler: Toggle-Logik von `text-[#F7EDC2]` auf `text-white` aktualisiert
+- CSS Mobile `@media (max-width: 767px)`: `.section-number-oversized { top: 0 !important }` — verhindert, dass das "01"-Element mit `top: -40px` über den `#handwerk`-Div-Rand (overflow:hidden) hinausragt und vom Hero verdeckt wird
+
+---
