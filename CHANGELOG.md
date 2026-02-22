@@ -419,3 +419,29 @@ Um eine frühere Version wiederherzustellen: `git log` → `git checkout <commit
 - CSS Mobile `@media (max-width: 767px)`: `.section-number-oversized { top: 0 !important }` — verhindert, dass das "01"-Element mit `top: -40px` über den `#handwerk`-Div-Rand (overflow:hidden) hinausragt und vom Hero verdeckt wird
 
 ---
+
+### [2026-02-21] – Projekt-Cleanup & Handover-Dokumentation
+**Dateien:** docs/HANDOVER-WEGEL.md (neu), docs/AUDIT.md, CHANGELOG.md, _temp/ (neu)
+**Was:** Root-Verzeichnis aufgeräumt, AUDIT-Status aktualisiert, vollständiges Handover-Dokument für wegel.cloud erstellt
+**Details:**
+- Root-Cleanup: Debug-Screenshots (*.png), Test-Webps und leere Dateien in `_temp/` verschoben
+- `transform.py` nach `scripts/` verschoben, `Änderungen.txt` nach `docs/kundin/` verschoben
+- `docs/HANDOVER-WEGEL.md` erstellt: Schritt-für-Schritt-Anleitung für Formspree-Integration, Platzhalter-Übersicht für alle 3 Rechtsdokumente, SEO Meta-Tags Code-Snippet, Favicon-Anforderungen, Vercel-Deployment-Hinweise
+- `docs/AUDIT.md`: 3 erledigte Aufgaben markiert (Prozess-Section, Gutschein-Button, 404-Seite), Gesamtbewertung 72→82/100, Verweis auf HANDOVER-WEGEL.md ergänzt
+- Executive Summary aktualisiert: 5 erledigte Items dokumentiert
+
+---
+
+### [2026-02-22] – Mobile quote text font-size media query
+**Dateien:** public/index.html
+**Was:** Responsive Schriftgröße für #quote-text auf mobilen Geräten
+**Details:** Nach Zeile 467 (schließende } von .underline-path) eingefügt: @media (max-width: 767px) { #quote-text { font-size: clamp(20px, 6vw, 36px) !important; } } (neue Zeilen 469-473)
+
+---
+
+### [2026-02-22] – Anfahrt-Block im Kontaktbereich ergänzt
+**Dateien:** public/index.html
+**Was:** Adress- und Hinweisblock unter den Kontaktlinks in #infoCol hinzugefügt
+**Details:** (1) CSS: Nach `.contact-link svg { flex-shrink: 0; }` (~Zeile 830) vier neue Klassen eingefügt: `.anfahrt-block`, `.anfahrt-label` (Casta, orange, uppercase), `.anfahrt-address` (flex, Space Mono, 13px, opacity 0.72), `.anfahrt-hinweis` (Space Mono, 11px, opacity 0.45). (2) HTML: In #infoCol nach dem schließenden `</div>` der `.contact-links` einen `.kontakt-divider` sowie einen `.anfahrt-block` mit Pin-Icon-SVG, Adresse (Propsteihof 3, 36100 Petersberg) und Einbahnstraßen-Hinweis eingefügt.
+
+---

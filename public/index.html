@@ -466,6 +466,12 @@
       stroke-dashoffset: 500;
     }
 
+    @media (max-width: 767px) {
+      #quote-text {
+        font-size: clamp(20px, 6vw, 36px) !important;
+      }
+    }
+
     .quote-word {
       display: inline-block;
       will-change: transform, opacity, filter;
@@ -822,6 +828,34 @@
       padding-left: 6px;
     }
     .contact-link svg { flex-shrink: 0; }
+    .anfahrt-block { margin-top: 0; }
+    .anfahrt-label {
+      font-family: 'Casta', serif;
+      font-size: 0.8rem;
+      color: var(--color-orange);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .anfahrt-address {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      color: var(--color-creme);
+      font-family: var(--font-space-mono);
+      font-size: 13px;
+      margin-bottom: 0.6rem;
+      opacity: 0.72;
+      line-height: 1.6;
+    }
+    .anfahrt-hinweis {
+      font-family: var(--font-space-mono);
+      font-size: 11px;
+      color: var(--color-creme);
+      opacity: 0.45;
+      line-height: 1.7;
+      margin: 0;
+    }
 
     /* Form section dividers */
     .form-section-label {
@@ -2062,6 +2096,18 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
               <span>@gunstundtinte</span>
             </a>
+          </div>
+          <div class="kontakt-divider" style="margin: 1.5rem 0 1.25rem;"></div>
+          <div class="anfahrt-block">
+            <p class="anfahrt-label">Anfahrt</p>
+            <div class="anfahrt-address">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div>
+                <div>Propsteihof 3</div>
+                <div>36100 Petersberg</div>
+              </div>
+            </div>
+            <p class="anfahrt-hinweis">Die Straße ist eine Einbahnstraße — bitte beim Einfahren beachten. Parkmöglichkeiten im Parkhaus direkt im Gebäude.</p>
           </div>
         </div>
 
